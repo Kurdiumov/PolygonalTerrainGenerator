@@ -1,0 +1,41 @@
+# Appveyor Build Scrip https://www.appveyor.com
+
+version: 0.1.1.{build}
+
+image: Visual Studio 2017
+
+platform: Any CPU
+
+configuration: Release
+
+install:
+  # MonoGame
+  - ps: (new-object net.webclient).DownloadFile('http://www.monogame.net/releases/v3.6/MonoGameSetup.exe', 'C:\MonoGameSetup.exe')
+  - ps: Invoke-Command -ScriptBlock {C:\MonoGameSetup.exe /S /v/qn}
+
+before_build:
+  # the NuGet packages had not been restored.
+  - ps: nuget restore ToxicUnited.sln
+
+build:
+  parallel: true
+  project: ToxicUnited.sln
+
+  # artifacts
+artifacts: 
+  - path: ToxicUnited\bin\Release\
+    name: ToxicUnited-Release-$(APPVEYOR_BUILD_VERSION) 
+    type: zip 
+
+deploy:
+  provider: GitHub
+  release: ToxicUnited-Release-v$(appveyor_build_version)
+  description: 'Release description'
+  auth_token:
+    secure:  QC2UePg96Y1PUpctpFnJ02sB7vfoKN6t5le0W5QIkg6vNhKEeOA8i+jo6JDNO9fC  # your encrypted token from GitHub
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: false        # deploy on tag push only
+    branch: master                 # release from master branch only
+    

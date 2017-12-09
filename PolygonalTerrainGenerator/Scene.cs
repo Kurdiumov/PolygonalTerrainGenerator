@@ -1,5 +1,5 @@
 ﻿using System;
-using Engine.GameObjects;
+using GameObjects;
 
 namespace Engine
 {

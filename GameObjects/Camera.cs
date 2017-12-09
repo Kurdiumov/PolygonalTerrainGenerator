@@ -1,7 +1,8 @@
 ﻿using System;
+using GameObjects;
 using Microsoft.Xna.Framework;
 
-namespace Engine.GameObjects
+namespace GameObjects
 {
     public class Camera : GameObject
     {  
@@ -35,7 +36,6 @@ namespace Engine.GameObjects
         public override void Update()
         {
             CreateLookAt();
-            Logger.Log.Info("Direction: " + Direction.X + " " +  Direction.Y + " " + Direction.Z);
         }
 
         private void CreateLookAt()
@@ -52,7 +52,6 @@ namespace Engine.GameObjects
         {
             if (_currentCamera == null)
             {
-                Logger.Log.Error("_currenCamera was not initialized");
                 throw new TypeInitializationException("_currenCamera was not initialized", null);
             }
             return
@@ -60,7 +59,7 @@ namespace Engine.GameObjects
             _currentCamera;
         }
 
-        public static void CreateCamera()
+        public static void CreateCamera(float aspectRatio)
         {
             var camera = new Camera("GodModeCamera")
             {
@@ -75,7 +74,7 @@ namespace Engine.GameObjects
             const float angle = 45;
 
             camera.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(angle),
-                App.GetApp().GraphicsDevice.Viewport.AspectRatio, nearDistance, farDistance);
+                aspectRatio, nearDistance, farDistance);
             SetCurrentCamera(camera);
         }
     }

@@ -1,7 +1,8 @@
 ﻿using System;
-using Engine.GameObjects;
+using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Generators;
 
 namespace Engine
 {
@@ -40,8 +41,10 @@ namespace Engine
             {
                 RootGameObject = new RootGameObject()
             };
-            Camera.CreateCamera();
-            TerrainObject.CreateTestObject(_scene.RootGameObject as RootGameObject);
+            Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
+
+            IGenerator generator = new MockGenerator(Content);
+            _scene.RootGameObject = generator.Generate();
 
            _spriteBatch = new SpriteBatch(GraphicsDevice);
 

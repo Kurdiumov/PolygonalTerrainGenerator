@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Engine.GameObjects
+namespace GameObjects
 {
     public abstract class GameObject
     {
@@ -58,15 +58,11 @@ namespace Engine.GameObjects
         {
             Childs.Add(obj);
             obj.Parent = this;
-            Logger.Log.Debug("GameObject " + obj.Name + " added to " + Name + " GameObject type: " + Type);
         }
 
         public void RemoveChild(GameObject obj)
         {
-            if (Childs.Remove(obj))
-                Logger.Log.Debug("GameObject " + obj.Name + " removed from " + Name + " GameObject type: " + Type);
-            else
-                Logger.Log.Debug("Cant remove GameObject " + obj.Name + " from " + Name + " GameObject type: " + Type);
+            Childs.Remove(obj);
 
         }
 
@@ -77,7 +73,6 @@ namespace Engine.GameObjects
                 if (Childs[i].Name == name)
                 {
                     Childs.RemoveAt(i);
-                    Logger.Log.Debug("GameObject " + Childs[i].Name + " removed from scene");
                     i--;
 
                     removed = true;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Engine.GameObjects
+namespace GameObjects
 {
     public class RootGameObject: GameObject
     {

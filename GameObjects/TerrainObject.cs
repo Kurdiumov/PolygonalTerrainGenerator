@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Engine.GameObjects
+namespace GameObjects
 {
     public class TerrainObject: GameObject
     {
@@ -24,9 +25,9 @@ namespace Engine.GameObjects
                 CreateTransformationMatrix();
         }
 
-        public static void CreateTestObject(RootGameObject root)
+        public static void CreateTestObject(RootGameObject root, ContentManager contentManager)
         {
-            var cube = new TerrainObject("Cube", App.GetApp().Content.Load<Model>("MonoCube"));
+            var cube = new TerrainObject("Cube", contentManager.Load<Model>("MonoCube"));
             cube.IsEnabled = true;
             cube.IsStatic = true;
             cube.Type = "TerrainObject";

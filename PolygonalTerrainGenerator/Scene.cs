@@ -1,27 +1,26 @@
 ﻿using System;
-using ProceduralTerrainGenerator.GameObjects;
+using Engine.GameObjects;
 
-
-namespace ProceduralTerrainGenerator
+namespace Engine
 {
-    public class Level
+    public class Scene
     {
         public string Name;
         public GameObject RootGameObject = null;
 
-        private static Level _currenLevel;
+        private static Scene _currenScene;
 
-        public Level(string Name)
+        public Scene(string name)
         {
-            this.Name = Name;
-            _currenLevel = this;
+            Name = name;
+            _currenScene = this;
         }
 
-        public static Level GetCurrentLevel()
+        public static Scene GetCurrentScene()
         {
-            if(_currenLevel == null)
+            if(_currenScene == null)
                 throw new TypeInitializationException("_currentLevel was not initialized", null);
-            return _currenLevel;
+            return _currenScene;
         }
 
         public void Update()

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace ProceduralTerrainGenerator.GameObjects
+namespace Engine.GameObjects
 {
     public class Camera : GameObject
     {  
@@ -26,7 +26,7 @@ namespace ProceduralTerrainGenerator.GameObjects
             _currentCamera = cam;
         }
 
-        protected override void Initialize()
+        protected sealed override void Initialize()
         {
             Direction.Normalize();
         }
@@ -35,6 +35,7 @@ namespace ProceduralTerrainGenerator.GameObjects
         public override void Update()
         {
             CreateLookAt();
+            Logger.Log.Info("Direction: " + Direction.X + " " +  Direction.Y + " " + Direction.Z);
         }
 
         private void CreateLookAt()
@@ -61,21 +62,21 @@ namespace ProceduralTerrainGenerator.GameObjects
 
         public static void CreateCamera()
         {
-            var camera = new Camera("GodModeCamera");
-            camera.Up = new Vector3(0, 1, 0);
-            camera.Direction = new Vector3(0, 0, -1);
-            camera.IsEnabled = true;
-            camera.Position = new Vector3(0, 0, 15);
-            camera.Speed = 0.3f;
-            float NearDistance = 1;
-            float FarDistance = 1000;
-            float Angle = 45;
+            var camera = new Camera("GodModeCamera")
+            {
+                Up = new Vector3(0, 0, 1),
+                Direction = new Vector3(0, -1, 0),
+                IsEnabled = true,
+                Position = new Vector3(0, 25, 0),
+                Speed = 0.3f
+            };
+            const float nearDistance = 1;
+            const float farDistance = 1000;
+            const float angle = 45;
 
-            camera.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(Angle),
-                ProceduralTerrainGenerator.PolygonalTerrainGenerator().GraphicsDevice.Viewport.AspectRatio, NearDistance, FarDistance);
-
-
-            Camera.SetCurrentCamera(camera);
+            camera.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(angle),
+                App.GetApp().GraphicsDevice.Viewport.AspectRatio, nearDistance, farDistance);
+            SetCurrentCamera(camera);
         }
     }
 }

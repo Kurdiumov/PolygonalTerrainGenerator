@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace ProceduralTerrainGenerator.GameObjects
+namespace Engine.GameObjects
 {
     public class RootGameObject: GameObject
     {

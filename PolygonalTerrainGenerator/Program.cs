@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProceduralTerrainGenerator
+namespace Engine
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -14,7 +14,7 @@ namespace ProceduralTerrainGenerator
         [STAThread]
         static void Main()
         {
-            using (var game = new ProceduralTerrainGenerator())
+            using (var game = new App())
                 try
                 {
                     game.Run();

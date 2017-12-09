@@ -1,7 +1,7 @@
 ﻿using log4net;
 using log4net.Config;
 
-namespace ProceduralTerrainGenerator
+namespace Engine
 {
     public static class Logger
     {

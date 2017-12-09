@@ -9,8 +9,8 @@
     <ProjectGuid>{5991D46F-A53C-4A67-9A4D-3AB9D43C9155}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PolygonalTerrainGenerator</RootNamespace>
-    <AssemblyName>PolygonalTerrainGenerator</AssemblyName>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
@@ -66,12 +66,11 @@
     <Compile Include="FPSCounter.cs" />
     <Compile Include="GameObjects\Camera.cs" />
     <Compile Include="GameObjects\RootGameObject.cs" />
-    <Compile Include="GameState.cs" />
     <Compile Include="InputHelper.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="GameObjects\TerrainObject.cs" />
-    <Compile Include="PolygonalTerrainGenerator.cs" />
+    <Compile Include="App.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

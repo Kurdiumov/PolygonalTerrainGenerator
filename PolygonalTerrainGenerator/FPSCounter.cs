@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProceduralTerrainGenerator
+namespace Engine
 {
-    public class FPSCounter
+    public class FpsCounter
     {
         public long TotalFrames { get; private set; }
         public float TotalSeconds { get; private set; }
         public float AverageFramesPerSecond { get; private set; }
         public float CurrentFramesPerSecond { get; private set; }
 
-        public const int MAXIMUM_SAMPLES = 100;
+        public const int MaximumSamples = 100;
 
-        private Queue<float> _sampleBuffer = new Queue<float>();
+        private readonly Queue<float> _sampleBuffer = new Queue<float>();
 
         public bool Update(float deltaTime)
         {
@@ -21,7 +21,7 @@ namespace ProceduralTerrainGenerator
 
             _sampleBuffer.Enqueue(CurrentFramesPerSecond);
 
-            if (_sampleBuffer.Count > MAXIMUM_SAMPLES)
+            if (_sampleBuffer.Count > MaximumSamples)
             {
                 _sampleBuffer.Dequeue();
                 AverageFramesPerSecond = _sampleBuffer.Average(i => i);

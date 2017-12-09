@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ProceduralTerrainGenerator.GameObjects
+namespace Engine.GameObjects
 {
     public abstract class GameObject
     {
@@ -18,7 +18,7 @@ namespace ProceduralTerrainGenerator.GameObjects
         public bool IsEnabled = true;
 
         public Model Model;
-        public GameObject Parent = null;
+        public GameObject Parent;
         public List<GameObject> Childs = new List<GameObject>();
 
         public Matrix TransformationMatrix;
@@ -35,8 +35,9 @@ namespace ProceduralTerrainGenerator.GameObjects
             {
                 foreach (ModelMesh mesh in Model.Meshes)
                 {
-                    foreach (BasicEffect effect in mesh.Effects)
+                    foreach (var effect1 in mesh.Effects)
                     {
+                        var effect = (BasicEffect) effect1;
                         //effect.EnableDefaultLighting();
                         effect.AmbientLightColor = new Vector3(1f, 0, 0);
                         effect.View = Camera.GetCurrentCamera().ViewMatrix;
@@ -96,15 +97,15 @@ namespace ProceduralTerrainGenerator.GameObjects
         public List<GameObject> FindGameObjectsInLevelByName(string name)
         {
             //TODO: Implement reccursive search
-            List<GameObject> FoundedItems = new List<GameObject>();
+            List<GameObject> foundedItems = new List<GameObject>();
 
             foreach (var item in Childs)
                 if (item.Name == name)
-                    FoundedItems.Add(item);
+                    foundedItems.Add(item);
 
 
-            if (FoundedItems.Count != 0)
-                return FoundedItems;
+            if (foundedItems.Count != 0)
+                return foundedItems;
             return null;
         }
 

@@ -8,6 +8,8 @@ namespace Engine
 {
     public class App : Game
     {
+        public GraphicsDeviceManager Graphics;
+
         private static Scene _scene;
         private static App _app;
 
@@ -21,14 +23,14 @@ namespace Engine
         public App()
         {
             _app = this;
-            var graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
 
             _configurationManager = new ConfigurationManager();
             if (_configurationManager.IsFullScreen)
-                graphics.IsFullScreen = true;
+                Graphics.IsFullScreen = true;
 
-            graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
-            graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
+            Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
+            Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
 
             Content.RootDirectory = "Content";
         }
@@ -41,10 +43,10 @@ namespace Engine
 
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
 
-            IGenerator generator = new MockGenerator(Content);
+            IGenerator generator = new RandomGenerator( GraphicsDevice, Graphics);
             Scene.AddObjectToRender(generator.Generate());
 
-           _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _fpsEnabled = _configurationManager.FpsEnabled;
 

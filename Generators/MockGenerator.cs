@@ -1,4 +1,5 @@
 ﻿using GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
 namespace Generators

@@ -38,10 +38,10 @@ namespace GameObjects
                         var effect = (BasicEffect)effect1;
                         //effect.EnableDefaultLighting();
                         effect.AmbientLightColor = new Vector3(1f, 0, 0);
-                        effect.View = Camera.GetCurrentCamera().ViewMatrix;
+                        effect.View = Camera.GetCamera().ViewMatrix;
 
                         effect.World = TransformationMatrix;
-                        effect.Projection = Camera.GetCurrentCamera().ProjectionMatrix;
+                        effect.Projection = Camera.GetCamera().ProjectionMatrix;
                     }
                     mesh.Draw();
                 }

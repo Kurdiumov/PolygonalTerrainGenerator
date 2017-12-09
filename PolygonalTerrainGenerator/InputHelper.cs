@@ -23,35 +23,35 @@ namespace Engine
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                Camera.GetCurrentCamera().Position += Vector3.Cross(Camera.GetCurrentCamera().Up, Camera.GetCurrentCamera().Direction) * Camera.GetCurrentCamera().Speed;
+                Camera.GetCamera().Position += Vector3.Cross(Camera.GetCamera().Up, Camera.GetCamera().Direction) * Camera.GetCamera().Speed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                Camera.GetCurrentCamera().Position -= Vector3.Cross(Camera.GetCurrentCamera().Up, Camera.GetCurrentCamera().Direction) * Camera.GetCurrentCamera().Speed;
+                Camera.GetCamera().Position -= Vector3.Cross(Camera.GetCamera().Up, Camera.GetCamera().Direction) * Camera.GetCamera().Speed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                Camera.GetCurrentCamera().Position += Camera.GetCurrentCamera().Direction *
-                                                      Camera.GetCurrentCamera().Speed;
+                Camera.GetCamera().Position += Camera.GetCamera().Direction *
+                                                      Camera.GetCamera().Speed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                Camera.GetCurrentCamera().Position -= Camera.GetCurrentCamera().Direction *
-                                                      Camera.GetCurrentCamera().Speed;
+                Camera.GetCamera().Position -= Camera.GetCamera().Direction *
+                                                      Camera.GetCamera().Speed;
             }
 
             if (Mouse.GetState() != _prevMouseState)
             {
-                Camera.GetCurrentCamera().Direction = Vector3.Transform(
-                    Camera.GetCurrentCamera().Direction,
-                    Matrix.CreateFromAxisAngle(Camera.GetCurrentCamera().Up,
+                Camera.GetCamera().Direction = Vector3.Transform(
+                    Camera.GetCamera().Direction,
+                    Matrix.CreateFromAxisAngle(Camera.GetCamera().Up,
                         (-MathHelper.PiOver4 / 150) * (Mouse.GetState().X - _prevMouseState.X)));
 
 
-                Camera.GetCurrentCamera().Direction = Vector3.Transform(
-                    Camera.GetCurrentCamera().Direction,
+                Camera.GetCamera().Direction = Vector3.Transform(
+                    Camera.GetCamera().Direction,
                     Matrix.CreateFromAxisAngle(
-                        Vector3.Cross(Camera.GetCurrentCamera().Up, Camera.GetCurrentCamera().Direction),
+                        Vector3.Cross(Camera.GetCamera().Up, Camera.GetCamera().Direction),
                         (MathHelper.PiOver4 / 100) * (Mouse.GetState().Y - _prevMouseState.Y)));
 
                 // Reset PrevMouseState

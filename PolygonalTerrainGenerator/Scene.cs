@@ -25,7 +25,7 @@ namespace Engine
 
         public void Update()
         {
-            Camera.GetCurrentCamera().Update();
+            Camera.GetCamera().Update();
             
             foreach (var obj  in _objectsToRender)
                 if(obj != null)
@@ -34,7 +34,7 @@ namespace Engine
 
         public void Draw()
         {
-            Camera.GetCurrentCamera().Draw();
+            Camera.GetCamera().Draw();
 
             foreach (var obj in _objectsToRender)
                 if (obj != null)

@@ -4,6 +4,6 @@ namespace Generators
 {
     public interface IGenerator
     {
-       RootGameObject Generate();
+       IGameObject Generate();
     }
 }

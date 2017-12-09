@@ -25,7 +25,7 @@ namespace GameObjects
                 CreateTransformationMatrix();
         }
 
-        public static void CreateTestObject(RootGameObject root, ContentManager contentManager)
+        public static IGameObject CreateTestObject(ContentManager contentManager)
         {
             var cube = new TerrainObject("Cube", contentManager.Load<Model>("MonoCube"));
             cube.IsEnabled = true;
@@ -35,8 +35,7 @@ namespace GameObjects
             cube.Rotation = new Vector3(0, 0, 0);
             cube.Scale = new Vector3(1, 1, 1);
             cube.CreateTransformationMatrix();
-
-            root.AddChild(cube);
+            return cube;
         }
     }
 }

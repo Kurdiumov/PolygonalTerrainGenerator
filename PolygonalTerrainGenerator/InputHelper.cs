@@ -39,22 +39,6 @@ namespace Engine
                 Camera.GetCurrentCamera().Position -= Camera.GetCurrentCamera().Direction *
                                                       Camera.GetCurrentCamera().Speed;
             }
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && _configurationManager.PickingEnabled)
-            {
-                var pickedObject = PickObject();
-
-                if (pickedObject != null)
-                {
-                    Logger.Log.Debug("Object picked: " + pickedObject.ToString());
-                    System.Diagnostics.Debug.Print("Object picked: " + pickedObject.ToString());
-                }
-                else
-                {
-                    Logger.Log.Debug("Object picked: NULL");
-                    System.Diagnostics.Debug.Print("Object picked: NULL");
-
-                }
-            }
 
             if (Mouse.GetState() != _prevMouseState)
             {
@@ -80,60 +64,6 @@ namespace Engine
                 ButtonState.Pressed || Keyboard.GetState().IsKeyDown(
                 Keys.Escape))
                 App.GetApp().Exit();
-        }
-
-
-        private GameObject PickObject()
-        {
-            Logger.Log.Debug("Mouse pressed");
-
-            var pickRay = CalculateRay(new Vector2(Mouse.GetState().X, Mouse.GetState().Y),
-                Camera.GetCurrentCamera().ViewMatrix, Camera.GetCurrentCamera().ProjectionMatrix,
-                App.GetApp().GraphicsDevice.Viewport);
-
-            GameObject closestObject = null;
-            float? closestObjectDistance = null;
-
-            foreach (var child in Scene.GetCurrentScene().RootGameObject.GetAllChilds(Scene.GetCurrentScene().RootGameObject))
-            {
-                if (child.Model == null || child.IsEnabled == false)
-                    continue;
-
-                foreach (var mesh in child.Model.Meshes)
-                {
-                    BoundingSphere sphere = mesh.BoundingSphere;
-                    sphere = sphere.Transform(child.TransformationMatrix);
-
-                    var currentDistance = pickRay.Intersects(sphere);
-                    if (currentDistance != null)
-                        if (closestObjectDistance == null || currentDistance < closestObjectDistance)
-                        {
-                            closestObject = child;
-                            closestObjectDistance = currentDistance;
-                        }
-                }
-            }
-            return closestObject;
-        }
-
-        private Ray CalculateRay(Vector2 mouseLocation, Matrix view, Matrix projection, Viewport viewport)
-        {
-            Vector3 nearPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 0.0f),
-                    projection,
-                    view,
-                    Matrix.Identity);
-
-            Vector3 farPoint = viewport.Unproject(new Vector3(mouseLocation.X,
-                    mouseLocation.Y, 1.0f),
-                    projection,
-                    view,
-                    Matrix.Identity);
-
-            Vector3 direction = farPoint - nearPoint;
-            direction.Normalize();
-
-            return new Ray(nearPoint, direction);
         }
     }
 }

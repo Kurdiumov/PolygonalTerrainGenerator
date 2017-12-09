@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameObjects;
 using Microsoft.Xna.Framework;
 
@@ -6,6 +7,7 @@ namespace GameObjects
 {
     public class Camera : GameObject
     {  
+       
         public Matrix ProjectionMatrix;
         public Matrix ViewMatrix;
 
@@ -45,7 +47,10 @@ namespace GameObjects
 
         public override void Draw()
         {
-
+           /* foreach (var obj in _objectsToRender)
+            {
+                obj.Draw();
+            }*/
         }
 
         public static Camera GetCurrentCamera()

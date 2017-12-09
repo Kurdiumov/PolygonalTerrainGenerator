@@ -12,13 +12,9 @@ namespace Generators
             _contentManager = contentManager;
         }
 
-        public RootGameObject Generate()
+        public IGameObject Generate()
         {
-            var rootGameObject = new RootGameObject();
-            TerrainObject.CreateTestObject(rootGameObject, _contentManager);
-
-
-            return rootGameObject;
+            return TerrainObject.CreateTestObject( _contentManager);
         }
     }
 }

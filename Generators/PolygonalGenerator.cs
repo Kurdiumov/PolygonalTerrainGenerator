@@ -5,7 +5,7 @@ namespace Generators
 {
     public class PolygonalGenerator : IGenerator
     {
-        public RootGameObject Generate()
+        public IGameObject Generate()
         {
             throw new NotImplementedException();
         }

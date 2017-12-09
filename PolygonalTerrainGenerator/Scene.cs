@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameObjects;
 
 namespace Engine
@@ -6,10 +7,9 @@ namespace Engine
     public class Scene
     {
         public string Name;
-        public GameObject RootGameObject = null;
 
         private static Scene _currenScene;
-
+        private static readonly List<IGameObject> _objectsToRender = new List<IGameObject>();
         public Scene(string name)
         {
             Name = name;
@@ -27,16 +27,23 @@ namespace Engine
         {
             Camera.GetCurrentCamera().Update();
             
-            foreach (var child  in RootGameObject.Childs)
-                child.Update();
+            foreach (var obj  in _objectsToRender)
+                if(obj != null)
+                    obj.Update();
         }
 
         public void Draw()
         {
             Camera.GetCurrentCamera().Draw();
 
-            foreach (var child in RootGameObject.Childs)
-                child.Draw();
+            foreach (var obj in _objectsToRender)
+                if (obj != null)
+                    obj.Draw();
+        }
+
+        public static void AddObjectToRender(IGameObject obj)
+        {
+            _objectsToRender.Add(obj);
         }
     }
 }

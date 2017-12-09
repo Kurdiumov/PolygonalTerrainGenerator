@@ -37,14 +37,12 @@ namespace Engine
         {
             Logger.Log.Debug("Initializing");
             base.Initialize();
-            _scene = new Scene("Level1")
-            {
-                RootGameObject = new RootGameObject()
-            };
+            _scene = new Scene("Scene");
+
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
 
             IGenerator generator = new MockGenerator(Content);
-            _scene.RootGameObject = generator.Generate();
+            Scene.AddObjectToRender(generator.Generate());
 
            _spriteBatch = new SpriteBatch(GraphicsDevice);
 

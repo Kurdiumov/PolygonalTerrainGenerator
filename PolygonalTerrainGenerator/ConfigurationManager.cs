@@ -5,7 +5,6 @@
         public bool IsFullScreen;
         public bool FpsEnabled;
         public bool MouseVisible;
-        public bool PickingEnabled;
 
         public int HeightResolution = 600;
         public int WidthResolution = 800;
@@ -17,7 +16,6 @@
             WidthResolution = 1920;
             FpsEnabled = true;
             MouseVisible = true;
-            PickingEnabled = true;
         }
     }
 }

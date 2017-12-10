@@ -3,32 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameObjects
 {
-    public class Primitive : IGameObject
+    public class PrimitiveBase : IGameObject
     {
-        private readonly int _gridSize;
+        protected int GridSize;
 
         private readonly GraphicsDevice _graphicDevice;
         private readonly BasicEffect _basicEffect;
 
         private VertexPositionNormalTexture[] _verts;
         private int[] _indices;
-
-        public Primitive(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize )
-        {
-            _graphicDevice = gd;
-
-            _gridSize = gridSize;
-            inputVertices = SetCorners(inputVertices, gridSize);
-            GenerateTerrain(inputVertices);
-
-            _basicEffect = new BasicEffect(gdm.GraphicsDevice)
-            {
-                LightingEnabled = true,
-                PreferPerPixelLighting = true
-            };
-            _basicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-            _basicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
-        }
 
         private float[][] SetCorners(float[][] inputVertices, int gridSize)
         {
@@ -42,31 +25,75 @@ namespace GameObjects
             return inputVertices;
         }
 
-        private void GenerateTerrain(float[][] _inputVertices)
+        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm)
         {
-            _verts = new VertexPositionNormalTexture[_gridSize * _gridSize];
-            for (int y = 0; y < _gridSize; y++)
+            _graphicDevice = gd;
+            _basicEffect = new BasicEffect(gdm.GraphicsDevice)
             {
-                for (int x = 0; x < _gridSize; x++)
+                LightingEnabled = true,
+                PreferPerPixelLighting = true
+            };
+            _basicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
+            _basicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+        }
+
+        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize)
+        {
+            _graphicDevice = gd;
+
+            GridSize = gridSize;
+            inputVertices = SetCorners(inputVertices, gridSize);
+            GenerateVertices(inputVertices);
+
+            _basicEffect = new BasicEffect(gdm.GraphicsDevice)
+            {
+                LightingEnabled = true,
+                PreferPerPixelLighting = true
+            };
+            _basicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
+            _basicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+        }
+
+        protected void GenerateVertices(float[][] _inputVertices)
+        {
+            _verts = new VertexPositionNormalTexture[GridSize * GridSize];
+            for (int y = 0; y < GridSize; y++)
+            {
+                for (int x = 0; x < GridSize; x++)
                 {
-                    _verts[x + y * _gridSize] = new VertexPositionNormalTexture(
-                        new Vector3((x - (_gridSize / 2)) * 0.25f,
+                    _verts[x + y * GridSize] = new VertexPositionNormalTexture(
+                        new Vector3((x - (GridSize / 2)) * 0.25f,
                             (_inputVertices[x][y] / 5) * 1.0f,
-                            (y - (_gridSize / 2)) * 0.25f),
+                            (y - (GridSize / 2)) * 0.25f),
                         Vector3.Zero, Vector2.Zero);
                 }
             }
+            GenerateIndices();
+        }
 
-            int ctr = 0;
-            _indices = new int[(_gridSize - 1) * (_gridSize - 1) * 6];
-            for (int y = 0; y < _gridSize - 1; y++)
+        protected void GenerateVertices(VertexPosition[] inputVertices)
+        {
+            _verts = new VertexPositionNormalTexture[GridSize * GridSize];
+            for(int i= 0; i < inputVertices.Length; i++)
             {
-                for (int x = 0; x < _gridSize - 1; x++)
+                _verts[i] = new VertexPositionNormalTexture(inputVertices[i].Position, Vector3.Up, Vector2.Zero);
+            }
+
+            GenerateIndices();
+        }
+
+        private void GenerateIndices()
+        {
+            int ctr = 0;
+            _indices = new int[(GridSize - 1) * (GridSize - 1) * 6];
+            for (int y = 0; y < GridSize - 1; y++)
+            {
+                for (int x = 0; x < GridSize - 1; x++)
                 {
-                    int tl = x + (y) * _gridSize;
-                    int tr = (x + 1) + (y) * _gridSize;
-                    int bl = x + (y + 1) * _gridSize;
-                    int br = (x + 1) + (y + 1) * _gridSize;
+                    int tl = x + (y) * GridSize;
+                    int tr = (x + 1) + (y) * GridSize;
+                    int bl = x + (y + 1) * GridSize;
+                    int br = (x + 1) + (y + 1) * GridSize;
 
                     _indices[ctr++] = tl;
                     _indices[ctr++] = br;
@@ -97,7 +124,6 @@ namespace GameObjects
             foreach (VertexPositionNormalTexture v in _verts)
                 v.Normal.Normalize();
         }
-
 
         public void Update()
         {

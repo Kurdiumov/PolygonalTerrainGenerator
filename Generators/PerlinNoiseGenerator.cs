@@ -20,7 +20,7 @@ namespace Generators
             var gridSize = 128;
             var arr = GenerateVertices(gridSize);
 
-            return new Primitive(_graphicDevice, _graphicDeviceManeger, arr, gridSize);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, gridSize);
         }
 
         private float[][] GenerateVertices(int gridSize)

@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IGenerator.cs" />
-    <Compile Include="MockGenerator.cs" />
     <Compile Include="NewGenerator.cs" />
     <Compile Include="NoiseGenerator.cs" />
     <Compile Include="RandomGenerator.cs" />

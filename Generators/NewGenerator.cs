@@ -25,7 +25,7 @@ namespace Generators
             var v6 = new VertexPosition(new Vector3(5, 0, -5));
             
             
-            return new Hexagon(_graphicDevice, _graphicDeviceManeger, v1, v2, v3, v4, v5, v6);
+            return new GameObjects.Rectangle(_graphicDevice, _graphicDeviceManeger, v1, v2, v3, v4/*, v5, v6*/);
         }
     }
 }

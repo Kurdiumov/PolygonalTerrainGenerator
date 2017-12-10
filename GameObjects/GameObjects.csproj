@@ -51,6 +51,7 @@
     <Compile Include="IGameObject.cs" />
     <Compile Include="PrimitiveBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sea.cs" />
     <Compile Include="TerrainObject.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -29,9 +29,6 @@ namespace Engine
             if (_configurationManager.IsFullScreen)
                 Graphics.IsFullScreen = true;
 
-            Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
-            Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
-
             Content.RootDirectory = "Content";
         }
 
@@ -40,12 +37,20 @@ namespace Engine
             Logger.Log.Debug("Initializing");
             base.Initialize();
             _scene = new Scene("Scene");
+            
+
+            Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
+            Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
 
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
+           
+            if (_configurationManager.SeaEnabled)
+            {
+                Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics));
+            }
 
-            IGenerator generator = new RectangleGenerator( GraphicsDevice, Graphics);
+            IGenerator generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
             Scene.AddObjectToRender(generator.Generate());
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _fpsEnabled = _configurationManager.FpsEnabled;

@@ -8,6 +8,11 @@ namespace GameObjects
     {
         private VertexPosition v1, v2, v3, v4;
 
+        public Rectangle(GraphicsDevice gd, GraphicsDeviceManager gdm) : base(gd, gdm)
+        {
+            
+        }
+
         public Rectangle(GraphicsDevice gd, GraphicsDeviceManager gdm, VertexPosition v1, VertexPosition v2, VertexPosition v3, VertexPosition v4): base(gd, gdm)
         {            
 

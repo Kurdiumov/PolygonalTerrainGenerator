@@ -8,7 +8,7 @@ namespace GameObjects
         protected int GridSize;
 
         private readonly GraphicsDevice _graphicDevice;
-        private readonly BasicEffect _basicEffect;
+        protected BasicEffect BasicEffect;
 
         private VertexPositionNormalTexture[] _verts;
         private int[] _indices;
@@ -28,13 +28,13 @@ namespace GameObjects
         public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm)
         {
             _graphicDevice = gd;
-            _basicEffect = new BasicEffect(gdm.GraphicsDevice)
+            BasicEffect = new BasicEffect(gdm.GraphicsDevice)
             {
                 LightingEnabled = true,
                 PreferPerPixelLighting = true
             };
-            _basicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-            _basicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+            BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
+            BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
         }
 
         public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize)
@@ -45,13 +45,13 @@ namespace GameObjects
             inputVertices = SetCorners(inputVertices, gridSize);
             GenerateVertices(inputVertices);
 
-            _basicEffect = new BasicEffect(gdm.GraphicsDevice)
+            BasicEffect = new BasicEffect(gdm.GraphicsDevice)
             {
                 LightingEnabled = true,
                 PreferPerPixelLighting = true
             };
-            _basicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-            _basicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+            BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
+            BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
         }
 
         protected void GenerateVertices(float[][] _inputVertices)
@@ -127,14 +127,14 @@ namespace GameObjects
 
         public void Update()
         {
-            _basicEffect.World = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            _basicEffect.View = Camera.GetCamera().ViewMatrix;
-            _basicEffect.Projection = Camera.GetCamera().ProjectionMatrix;
+            BasicEffect.World = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            BasicEffect.View = Camera.GetCamera().ViewMatrix;
+            BasicEffect.Projection = Camera.GetCamera().ProjectionMatrix;
         }
 
         public void Draw()
         {
-            foreach (EffectPass pass in _basicEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in BasicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
 

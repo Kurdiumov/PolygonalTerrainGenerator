@@ -17,7 +17,7 @@ namespace Generators
 
         public IGameObject Generate()
         {
-            var gridSize = 128;
+            var gridSize = 256;
             var arr = GenerateVertices(gridSize);
 
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, gridSize);

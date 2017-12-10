@@ -117,7 +117,7 @@ namespace Generators
             return perlinNoise;
         }
 
-        private static float[][] GetEmptyArray(int width, int height)
+        public static float[][] GetEmptyArray(int width, int height)
         {
             var arr = new float[width][];
             for (int i = 0; i < width; i++)

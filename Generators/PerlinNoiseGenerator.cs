@@ -1,5 +1,4 @@
-﻿using System;
-using GameObjects;
+﻿using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -21,13 +20,13 @@ namespace Generators
             var gridSize = 128;
             var arr = GenerateVertices(gridSize);
 
-            return new DiamondSquareObject(_graphicDevice, _graphicDeviceManeger, arr, gridSize);
+            return new Primitive(_graphicDevice, _graphicDeviceManeger, arr, gridSize);
         }
 
         private float[][] GenerateVertices(int gridSize)
         {
-            var whiteNoise = NoiseGenerator.GenerateRandom(gridSize, 15);
-            var perlinNoise = NoiseGenerator.GeneratePerlinNoise(whiteNoise, 7);
+            var randomeNoise = NoiseGenerator.GenerateRandom(gridSize, 15);
+            var perlinNoise = NoiseGenerator.GeneratePerlinNoise(randomeNoise, 7);
 
             return perlinNoise;
         }

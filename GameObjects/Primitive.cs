@@ -3,10 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameObjects
 {
-    public class DiamondSquareObject : IGameObject
+    public class Primitive : IGameObject
     {
         private readonly int _gridSize;
-
 
         private readonly GraphicsDevice _graphicDevice;
         private readonly BasicEffect _basicEffect;
@@ -14,7 +13,7 @@ namespace GameObjects
         private VertexPositionNormalTexture[] _verts;
         private int[] _indices;
 
-        public DiamondSquareObject(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize )
+        public Primitive(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize )
         {
             _graphicDevice = gd;
 

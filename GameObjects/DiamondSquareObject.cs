@@ -6,7 +6,7 @@ namespace GameObjects
     public class DiamondSquareObject : IGameObject
     {
         private readonly int _gridSize;
-        private readonly float[][] _inputVertices;
+
 
         private readonly GraphicsDevice _graphicDevice;
         private readonly BasicEffect _basicEffect;
@@ -19,8 +19,8 @@ namespace GameObjects
             _graphicDevice = gd;
 
             _gridSize = gridSize;
-            _inputVertices = inputVertices;
-            GenerateTerrain();
+            inputVertices = SetCorners(inputVertices, gridSize);
+            GenerateTerrain(inputVertices);
 
             _basicEffect = new BasicEffect(gdm.GraphicsDevice)
             {
@@ -31,7 +31,19 @@ namespace GameObjects
             _basicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
         }
 
-        private void GenerateTerrain()
+        private float[][] SetCorners(float[][] inputVertices, int gridSize)
+        {
+            for (int i = 0; i < gridSize; i++)
+            {
+                inputVertices[0][i] = 0;
+                inputVertices[gridSize - 1][i] = 0;
+                inputVertices[i][0] = 0;
+                inputVertices[i][gridSize - 1] = 0;
+            }
+            return inputVertices;
+        }
+
+        private void GenerateTerrain(float[][] _inputVertices)
         {
             _verts = new VertexPositionNormalTexture[_gridSize * _gridSize];
             for (int y = 0; y < _gridSize; y++)

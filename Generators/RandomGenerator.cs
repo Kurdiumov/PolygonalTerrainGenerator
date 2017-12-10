@@ -1,7 +1,5 @@
-﻿using System;
-using GameObjects;
+﻿using GameObjects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Generators
@@ -27,15 +25,7 @@ namespace Generators
 
         private float[][] GenerateVertices(int gridSize)
         {
-            var random = new Random();
-            var arr = new float[gridSize][];
-            for (int i = 0; i < gridSize; i++)
-            {
-                arr[i] = new float[gridSize];
-                for (int j = 0; j < gridSize; j++)
-                    arr[i][j] = random.Next(3);
-            }
-            return arr;
+            return NoiseGenerator.GenerateRandom(gridSize, 3);
         }
     }
 }

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="IGenerator.cs" />
     <Compile Include="MockGenerator.cs" />
+    <Compile Include="NoiseGenerator.cs" />
     <Compile Include="RandomGenerator.cs" />
     <Compile Include="PerlinNoiseGenerator.cs" />
     <Compile Include="PolygonalGenerator.cs" />

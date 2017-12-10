@@ -43,7 +43,7 @@ namespace Engine
 
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
 
-            IGenerator generator = new PerlinNoiseGenerator( GraphicsDevice, Graphics);
+            IGenerator generator = new RectangleGenerator( GraphicsDevice, Graphics);
             Scene.AddObjectToRender(generator.Generate());
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);

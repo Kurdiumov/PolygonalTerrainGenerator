@@ -1,8 +1,6 @@
-﻿using System;
-using GameObjects;
+﻿using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Rectangle = GameObjects.Rectangle;
 
 namespace Generators
 {
@@ -25,7 +23,7 @@ namespace Generators
             var v4 = new VertexPosition(new Vector3(10, 0, 10));
             var v5 = new VertexPosition(new Vector3(10, 0, 0));
             var v6 = new VertexPosition(new Vector3(5, 0, -5));
-
+            
             
             return new Hexagon(_graphicDevice, _graphicDeviceManeger, v1, v2, v3, v4, v5, v6);
         }

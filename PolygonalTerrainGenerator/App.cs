@@ -112,13 +112,16 @@ namespace Engine
 
             Scene.AddObjectToRender(generator.Generate());
 
-            for (int iteration = 1; iteration < 2; iteration++)
+            for (int iteration = 1; iteration < 3; iteration++)
             {
                 Thread.Sleep(5000);
-                for (int x = 0; x < iteration; x++)
+                Scene.AddObjectToRender(generator.Generate(-iteration, -iteration));
+                for (int x = iteration * -1; x < iteration; x++)
                 {
                     Scene.AddObjectToRender(generator.Generate(x, iteration));
                     Scene.AddObjectToRender(generator.Generate(iteration, x));
+                    Scene.AddObjectToRender(generator.Generate(x, -iteration));
+                    Scene.AddObjectToRender(generator.Generate(-iteration, x));
                 }
 
                 Scene.AddObjectToRender(generator.Generate(iteration, iteration));

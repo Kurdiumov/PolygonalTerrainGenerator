@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using GameObjects;
 using Microsoft.Xna.Framework;
@@ -41,7 +42,7 @@ namespace Engine
             Logger.Log.Debug("Initializing");
             base.Initialize();
             _scene = new Scene("Scene");
-            
+
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
             Thread terrainGeneratorThread = new Thread(_generateTerrain);
             terrainGeneratorThread.Start();
@@ -108,7 +109,21 @@ namespace Engine
             }
 
             IGenerator generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
+
             Scene.AddObjectToRender(generator.Generate());
+
+            for (int iteration = 1; iteration < 2; iteration++)
+            {
+                Thread.Sleep(5000);
+                for (int x = 0; x < iteration; x++)
+                {
+                    Scene.AddObjectToRender(generator.Generate(x, iteration));
+                    Scene.AddObjectToRender(generator.Generate(iteration, x));
+                }
+
+                Scene.AddObjectToRender(generator.Generate(iteration, iteration));
+                
+            }
         }
     }
 }

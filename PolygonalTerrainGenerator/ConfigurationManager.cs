@@ -14,12 +14,12 @@ namespace Engine
 
         public ConfigurationManager()
         {
-            IsFullScreen = true;
+            IsFullScreen = false;
             HeightResolution = 768; //1080;
             WidthResolution = 1366; //1920;
             FpsEnabled = true;
             MouseVisible = false;
-            SeaEnabled = false;
+            SeaEnabled = true;
         }
     }
 }

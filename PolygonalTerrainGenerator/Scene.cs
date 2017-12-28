@@ -18,27 +18,41 @@ namespace Engine
 
         public static Scene GetCurrentScene()
         {
-            if(_currenScene == null)
+            if (_currenScene == null)
                 throw new TypeInitializationException("_currentLevel was not initialized", null);
             return _currenScene;
         }
 
         public void Update()
         {
-            Camera.GetCamera().Update();
-            
-            foreach (var obj  in _objectsToRender)
-                if(obj != null)
-                    obj.Update();
+            try
+            {
+                Camera.GetCamera().Update();
+
+                foreach (var obj in _objectsToRender)
+                    if (obj != null)
+                        obj.Update();
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Warn("Unchandled expeption in Scene.Update:" + e);
+            }
         }
 
         public void Draw()
         {
-            Camera.GetCamera().Draw();
+            try
+            {
+                Camera.GetCamera().Draw();
 
-            foreach (var obj in _objectsToRender)
-                if (obj != null)
-                    obj.Draw();
+                foreach (var obj in _objectsToRender)
+                    if (obj != null)
+                        obj.Draw();
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Warn("Unchandled expeption in Scene.Draw:" + e);
+            }
         }
 
         public static void AddObjectToRender(IGameObject obj)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -42,14 +43,9 @@ namespace Engine
             _scene = new Scene("Scene");
             
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
-           
-            if (_configurationManager.SeaEnabled)
-            {
-                Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics));
-            }
+            Thread terrainGeneratorThread = new Thread(_generateTerrain);
+            terrainGeneratorThread.Start();
 
-            IGenerator generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
-            Scene.AddObjectToRender(generator.Generate());
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _fpsEnabled = _configurationManager.FpsEnabled;
@@ -102,6 +98,17 @@ namespace Engine
             if (_app == null)
                 throw new NullReferenceException("GetApp siege is not created");
             return _app;
+        }
+
+        private void _generateTerrain()
+        {
+            if (_configurationManager.SeaEnabled)
+            {
+                Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics));
+            }
+
+            IGenerator generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
+            Scene.AddObjectToRender(generator.Generate());
         }
     }
 }

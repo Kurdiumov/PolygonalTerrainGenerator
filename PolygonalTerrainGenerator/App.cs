@@ -114,7 +114,7 @@ namespace Engine
 
             for (int iteration = 1; iteration < 3; iteration++)
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
                 Scene.AddObjectToRender(generator.Generate(-iteration, -iteration));
                 for (int x = iteration * -1; x < iteration; x++)
                 {

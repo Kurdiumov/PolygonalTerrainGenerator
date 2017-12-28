@@ -29,6 +29,9 @@ namespace Engine
             if (_configurationManager.IsFullScreen)
                 Graphics.IsFullScreen = true;
 
+            Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
+            Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
+
             Content.RootDirectory = "Content";
         }
 
@@ -38,10 +41,6 @@ namespace Engine
             base.Initialize();
             _scene = new Scene("Scene");
             
-
-            Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
-            Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
-
             Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
            
             if (_configurationManager.SeaEnabled)

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HillAlgorithmGenerator.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="NewGenerator.cs" />
     <Compile Include="NoiseGenerator.cs" />

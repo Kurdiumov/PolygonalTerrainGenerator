@@ -19,7 +19,7 @@ namespace Engine
             WidthResolution = 1366; //1920;
             FpsEnabled = true;
             MouseVisible = false;
-            SeaEnabled = true;
+            SeaEnabled = false;
         }
     }
 }

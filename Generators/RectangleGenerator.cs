@@ -26,7 +26,7 @@ namespace Generators
             _heightMap = NoiseGenerator.GetEmptyArray(_mapsize, _mapsize);
         }
 
-        public IGameObject Generate()
+        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
         {
             for (var i = 0; i < _genStep; i++)
             {
@@ -40,7 +40,7 @@ namespace Generators
                 for (int j2 = y1; j2 < y2; j2++)
                     _heightMap[i2][j2] = (_zscale / _genStep + _rand.Next() % _height) / Smoothness;
             }
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, _heightMap, _mapsize);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, _heightMap, _mapsize, offsetX * _mapsize / 4, offsetY * _mapsize / 4);
         }
     }
 }

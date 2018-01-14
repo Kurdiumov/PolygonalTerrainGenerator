@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameObjects
@@ -28,6 +29,8 @@ namespace GameObjects
         public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm)
         {
             _graphicDevice = gd;
+            if (gdm.GraphicsDevice == null)
+                return;
             BasicEffect = new BasicEffect(gdm.GraphicsDevice)
             {
                 LightingEnabled = true,
@@ -37,24 +40,31 @@ namespace GameObjects
             BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
         }
 
-        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize)
+        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize, float offsetX = 0, float offsetY = 0)
         {
-            _graphicDevice = gd;
-
-            GridSize = gridSize;
-            inputVertices = SetCorners(inputVertices, gridSize);
-            GenerateVertices(inputVertices);
-
-            BasicEffect = new BasicEffect(gdm.GraphicsDevice)
+            try
             {
-                LightingEnabled = true,
-                PreferPerPixelLighting = true
-            };
-            BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-            BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+                _graphicDevice = gd;
+
+                GridSize = gridSize;
+                inputVertices = SetCorners(inputVertices, gridSize);
+                GenerateVertices(inputVertices, offsetX, offsetY);
+
+                BasicEffect = new BasicEffect(gdm.GraphicsDevice)
+                {
+                    LightingEnabled = true,
+                    PreferPerPixelLighting = true
+                };
+                BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
+                BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+            }
+            catch (System.Exception e)
+            {
+
+            }
         }
 
-        protected void GenerateVertices(float[][] _inputVertices)
+        protected void GenerateVertices(float[][] _inputVertices, float offsetX = 0, float offsetY = 0)
         {
             _verts = new VertexPositionNormalTexture[GridSize * GridSize];
             for (int y = 0; y < GridSize; y++)
@@ -62,9 +72,9 @@ namespace GameObjects
                 for (int x = 0; x < GridSize; x++)
                 {
                     _verts[x + y * GridSize] = new VertexPositionNormalTexture(
-                        new Vector3((x - (GridSize / 2)) * 0.25f,
-                            (_inputVertices[x][y] / 5) * 1.0f,
-                            (y - (GridSize / 2)) * 0.25f),
+                        new Vector3(((x - (GridSize / 2)) ) + offsetX,
+                            (_inputVertices[x][y] / 2) * 1.0f,
+                            ((y - (GridSize / 2)) ) + offsetY),
                         Vector3.Zero, Vector2.Zero);
                 }
             }
@@ -74,7 +84,7 @@ namespace GameObjects
         protected void GenerateVertices(VertexPosition[] inputVertices)
         {
             _verts = new VertexPositionNormalTexture[GridSize * GridSize];
-            for(int i= 0; i < inputVertices.Length; i++)
+            for (int i = 0; i < inputVertices.Length; i++)
             {
                 _verts[i] = new VertexPositionNormalTexture(inputVertices[i].Position, Vector3.Up, Vector2.Zero);
             }
@@ -127,13 +137,16 @@ namespace GameObjects
 
         public void Update()
         {
+
             BasicEffect.World = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             BasicEffect.View = Camera.GetCamera().ViewMatrix;
             BasicEffect.Projection = Camera.GetCamera().ProjectionMatrix;
+
         }
 
         public void Draw()
         {
+
             foreach (EffectPass pass in BasicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();

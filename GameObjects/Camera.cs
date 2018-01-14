@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using GameObjects;
 using Microsoft.Xna.Framework;
 
 namespace GameObjects

@@ -108,11 +108,11 @@ namespace Engine
                 Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics));
             }
 
-            IGenerator generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
+            IGenerator generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics);
 
             Scene.AddObjectToRender(generator.Generate());
 
-            for (int iteration = 1; iteration < 3; iteration++)
+            for (int iteration = 1; iteration < 1; iteration++)
             {
                 Thread.Sleep(1000);
                 Scene.AddObjectToRender(generator.Generate(-iteration, -iteration));

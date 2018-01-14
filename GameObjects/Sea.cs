@@ -5,7 +5,7 @@ namespace GameObjects
 {
     public class Sea : Rectangle
     {
-        public readonly int Size = 32;
+        public readonly int Size = 10000;
         public readonly float Level = 1;
 
         public Sea(GraphicsDevice gd, GraphicsDeviceManager gdm) : base(gd, gdm)
@@ -19,7 +19,6 @@ namespace GameObjects
             arr[3] = new VertexPosition(new Vector3(Size, Level + 0.001f, Size));
 
             GenerateVertices(arr);
-
 
             BasicEffect.DirectionalLight0.DiffuseColor = Color.DarkCyan.ToVector3();
         }

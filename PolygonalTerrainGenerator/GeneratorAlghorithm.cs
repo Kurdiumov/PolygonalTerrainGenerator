@@ -10,7 +10,10 @@ namespace Engine
     {
         HillGenerator,
         PerlinNoiseGenerator,
+        TruePerlinNoiseGenerator, //MOCK
         RandomGenerator,
-        RectangleGenerator
+        RectangleGenerator,
+        VoronoiGenerator, //MOCK
+        Fractalgenerator //MOCK
     }
 }

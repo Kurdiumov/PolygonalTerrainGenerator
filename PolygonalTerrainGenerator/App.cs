@@ -121,6 +121,15 @@ namespace Engine
                 case GeneratorAlghorithm.RectangleGenerator:
                     generator = new RectangleGenerator(GraphicsDevice, Graphics);
                     break;
+                case GeneratorAlghorithm.VoronoiGenerator:
+                    generator = new VoronoiGenerator(GraphicsDevice, Graphics);
+                    break;
+                case GeneratorAlghorithm.TruePerlinNoiseGenerator:
+                    generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics);
+                    break;
+                case GeneratorAlghorithm.Fractalgenerator:
+                    generator = new FractalGenerator(GraphicsDevice, Graphics);
+                    break;
                 default:
                     throw new NotImplementedException("Unknown alghorithm");
             }

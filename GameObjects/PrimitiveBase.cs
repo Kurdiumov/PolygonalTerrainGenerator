@@ -146,7 +146,6 @@ namespace GameObjects
 
         public void Draw()
         {
-
             foreach (EffectPass pass in BasicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();

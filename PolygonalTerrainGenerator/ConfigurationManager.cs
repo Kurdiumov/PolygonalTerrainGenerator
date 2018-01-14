@@ -9,17 +9,19 @@ namespace Engine
         public bool MouseVisible;
         public bool SeaEnabled;
 
-        public int HeightResolution = 600;
-        public int WidthResolution = 800;
+        public int HeightResolution = 1080;
+        public int WidthResolution = 1920;
+        public GeneratorAlghorithm Alghorithm;
 
         public ConfigurationManager()
         {
             IsFullScreen = false;
-            HeightResolution = 768; //1080;
-            WidthResolution = 1366; //1920;
+            HeightResolution = 768;
+            WidthResolution = 1366;
             FpsEnabled = true;
             MouseVisible = false;
-            SeaEnabled = false;
+            SeaEnabled = true;
+            Alghorithm = GeneratorAlghorithm.PerlinNoiseGenerator;
         }
     }
 }

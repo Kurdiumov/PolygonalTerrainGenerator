@@ -12,12 +12,12 @@ namespace Generators
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
         private readonly System.Random Rand = new Random();
 
-        public int Iterations = 100;
+        public int Iterations = 10000;
         public int RadiusMin = 10;
-        public int RadiusMax = 20;
-        public int GridSize = 128;
-        public int Flattening = 4;
-        public float Height = 15;
+        public int RadiusMax = 40;
+        public int GridSize = 1024;
+        public int Flattening = 8;
+        public float Height = 35;
 
         public HillAlgorithmGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
         {
@@ -29,14 +29,13 @@ namespace Generators
         {
             var arr = GenerateVertices(GridSize);
 
-
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, GridSize, offsetX * GridSize / 4, offsetY * GridSize / 4);
         }
 
 
         private float[][] GenerateVertices(int gridSize)
         {
-            var arr = NoiseGenerator.GetEmptyArray(gridSize, gridSize);
+            var arr = Utils.GetEmptyArray(gridSize, gridSize);
 
 
             for (var i = 0; i < Iterations; i++)
@@ -48,13 +47,7 @@ namespace Generators
                 arr = RaiseHill(arr, radius, centerX, centerY);
             }
 
-            arr = Normalize(arr);
-            arr = Flatten(arr);
-            for (var x = 0; x < GridSize; ++x)
-                for (var y = 0; y < GridSize; ++y)
-                    arr[x][y] = arr[x][y] * Height;
-                
-
+            arr = PostModifications.NormalizeAndFlatten(arr, GridSize, Flattening, Height);
             return arr;
         }
 
@@ -77,68 +70,10 @@ namespace Generators
                 {
                     // z = r^2 - ((x2-x1)^2 + (y2-y1)^2)
                     float distanceSquare = (centerX - x) * (centerX - x) + (centerY - y) * (centerY - y);
-                    var height = Square(radius) - distanceSquare;
+                    var height = Utils.Square(radius) - distanceSquare;
 
                     if (height > 0 && arr[y][x] < (height))
                         arr[y][x] = height;
-                }
-            }
-
-            return arr;
-        }
-
-        //TODO: rename and move to Utils
-        private static float Square(float number)
-        {
-            return number * number;
-        }
-
-        private float[][] Normalize(float[][] arr)
-        {
-            float min = 0;
-            float max = 0;
-
-            for (var x = 0; x < GridSize; ++x)
-                for (var y = 0; y < GridSize; ++y)
-                {
-                    var z = arr[x][y];
-                    if (z < min) min = z;
-                    if (z > max) max = z;
-                }
-
-
-            if (min != max)
-            {
-                for (var x = 0; x < GridSize; ++x)
-                    for (var y = 0; y < GridSize; ++y)
-                    {
-                        arr[x][y] = (arr[x][y] - min) / (max - min);
-                    }
-            }
-            else
-            {
-                for (var x = 0; x < GridSize; ++x)
-                    for (var y = 0; y < GridSize; ++y)
-                        arr[x][y] = min;
-            }
-
-            return arr;
-        }
-
-        private float[][] Flatten(float[][] arr)
-        {
-            if (Flattening <= 1) return arr;
-            for (var x = 0; x < GridSize; ++x)
-            {
-                for (var y = 0; y < GridSize; ++y)
-                {
-                    var flat = 1f;
-                    var original = arr[x][y];
-
-                    for (var i = 0; i < Flattening; ++i)
-                        flat *= original;
-
-                    arr[x][y] = flat;
                 }
             }
 

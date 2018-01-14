@@ -103,14 +103,34 @@ namespace Engine
 
         private void _generateTerrain()
         {
-            if (_configurationManager.SeaEnabled)
+            IGenerator generator = null;
+
+            switch (_configurationManager.Alghorithm)
             {
-                Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics));
+                case GeneratorAlghorithm.PerlinNoiseGenerator:
+                    generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
+                    if (_configurationManager.SeaEnabled)
+                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 14));
+                    break;
+                case GeneratorAlghorithm.HillGenerator:
+                    generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics);
+                    break;
+                case GeneratorAlghorithm.RandomGenerator:
+                    generator = new RandomGenerator(GraphicsDevice, Graphics);
+                    break;
+                case GeneratorAlghorithm.RectangleGenerator:
+                    generator = new RectangleGenerator(GraphicsDevice, Graphics);
+                    break;
+                default:
+                    throw new NotImplementedException("Unknown alghorithm");
             }
+            if (generator == null)
+                throw new NullReferenceException("Generator cannot be null");
 
-            IGenerator generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics);
-
+            var timeStart = System.DateTime.Now;
             Scene.AddObjectToRender(generator.Generate());
+            Logger.Log.Info("Generated time = " + (DateTime.Now - timeStart).TotalMilliseconds + " ms for " + _configurationManager.Alghorithm.ToString());
+
 
             for (int iteration = 1; iteration < 1; iteration++)
             {
@@ -125,7 +145,7 @@ namespace Engine
                 }
 
                 Scene.AddObjectToRender(generator.Generate(iteration, iteration));
-                
+
             }
         }
     }

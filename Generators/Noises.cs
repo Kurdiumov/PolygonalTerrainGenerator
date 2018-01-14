@@ -2,14 +2,14 @@
 
 namespace Generators
 {
-    public static class NoiseGenerator
+    public static class Noises
     {
         public static float[][]  GenerateSmoothNoise(float[][] baseNoise, int octave)
         {
             int width = baseNoise.Length;
             int height = baseNoise[0].Length;
 
-            float[][] smoothNoise = GetEmptyArray(width, height);
+            float[][] smoothNoise = Utils.GetEmptyArray(width, height);
 
             int samplePeriod = 1 << octave; // calculates 2 ^ k
             float sampleFrequency = 1.0f / samplePeriod;
@@ -29,15 +29,15 @@ namespace Generators
                     float vertical_blend = (j - sample_j0) * sampleFrequency;
 
                     //blend the top two corners
-                    float top = Interpolate(baseNoise[sample_i0][sample_j0],
+                    float top = Utils.Interpolate(baseNoise[sample_i0][sample_j0],
                         baseNoise[sample_i1][sample_j0], horizontal_blend);
 
                     //blend the bottom two corners
-                    float bottom = Interpolate(baseNoise[sample_i0][sample_j1],
+                    float bottom = Utils.Interpolate(baseNoise[sample_i0][sample_j1],
                         baseNoise[sample_i1][sample_j1], horizontal_blend);
 
                     //final blend
-                    smoothNoise[i][j] = Interpolate(top, bottom, vertical_blend);
+                    smoothNoise[i][j] = Utils.Interpolate(top, bottom, vertical_blend);
                 }
             }
 
@@ -47,7 +47,7 @@ namespace Generators
         public static float[][] GenerateWhiteNoise(int width, int height)
         {
             Random random = new Random(0); //Seed to 0 for testing
-            float[][] noise = GetEmptyArray(width, height);
+            float[][] noise = Utils.GetEmptyArray(width, height);
 
             for (int i = 0; i < width; i++)
             {
@@ -63,7 +63,7 @@ namespace Generators
         public static float[][] GenerateRandom(int gridSize, int maxSize)
         {
             var random = new Random();
-            var arr = GetEmptyArray(gridSize, gridSize);
+            var arr = Utils.GetEmptyArray(gridSize, gridSize);
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
@@ -86,7 +86,7 @@ namespace Generators
                 smoothNoise[i] = GenerateSmoothNoise(baseNoise, i);
             }
 
-            float[][] perlinNoise = GetEmptyArray(width, height);
+            float[][] perlinNoise = Utils.GetEmptyArray(width, height);
             float amplitude = 1.0f;
             float totalAmplitude = 0.0f;
 
@@ -115,21 +115,6 @@ namespace Generators
             }
 
             return perlinNoise;
-        }
-
-        public static float[][] GetEmptyArray(int width, int height)
-        {
-            var arr = new float[width][];
-            for (int i = 0; i < width; i++)
-            {
-                arr[i] = new float[height];
-            }
-            return arr;
-        }
-
-        private static float Interpolate(float x0, float x1, float alpha)
-        {
-            return x0 * (1 - alpha) + alpha * x1;
         }
     }
 }

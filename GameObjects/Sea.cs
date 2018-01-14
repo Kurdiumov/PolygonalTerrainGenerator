@@ -6,10 +6,11 @@ namespace GameObjects
     public class Sea : Rectangle
     {
         public readonly int Size = 10000;
-        public readonly float Level = 1;
+        public readonly float Level;
 
-        public Sea(GraphicsDevice gd, GraphicsDeviceManager gdm) : base(gd, gdm)
+        public Sea(GraphicsDevice gd, GraphicsDeviceManager gdm, float level = 1) : base(gd, gdm)
         {
+            Level = level;
             GridSize = 2;
             var arr = new VertexPosition[4];
 

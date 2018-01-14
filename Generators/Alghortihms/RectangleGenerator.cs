@@ -10,11 +10,11 @@ namespace Generators
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
 
-        private readonly int _mapsize = 256;
+        private readonly int _mapsize = 1024;
         private readonly float[][] _heightMap; 
         private readonly int _genStep = 1024;
         private readonly float _zscale = 512;
-        private readonly int _density = 13;
+        private readonly int _density = 52;
         private readonly float _height = 40;
         private const float Smoothness = 15.0f;
         private readonly Random _rand = new Random();
@@ -23,7 +23,7 @@ namespace Generators
         {
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
-            _heightMap = NoiseGenerator.GetEmptyArray(_mapsize, _mapsize);
+            _heightMap = Utils.GetEmptyArray(_mapsize, _mapsize);
         }
 
         public IGameObject Generate(float offsetX = 0, float offsetY = 0)

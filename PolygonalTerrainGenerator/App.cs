@@ -105,48 +105,48 @@ namespace Engine
         {
             IGenerator generator = null;
 
-            switch (_configurationManager.Alghorithm)
+            switch (_configurationManager.Algorithm)
             {
-                case GeneratorAlghorithm.PerlinNoiseGenerator:
+                case GeneratorAlgorithm.PerlinNoiseGenerator:
                     generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
                     if (_configurationManager.SeaEnabled)
                         Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 14));
                     break;
-                case GeneratorAlghorithm.HillGenerator:
+                case GeneratorAlgorithm.HillGenerator:
                     generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.RandomGenerator:
+                case GeneratorAlgorithm.RandomGenerator:
                     generator = new RandomGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.RectangleGenerator:
+                case GeneratorAlgorithm.RectangleGenerator:
                     generator = new RectangleGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.VoronoiGenerator:
+                case GeneratorAlgorithm.VoronoiGenerator:
                     generator = new VoronoiGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.TruePerlinNoiseGenerator:
+                case GeneratorAlgorithm.TruePerlinNoiseGenerator:
                     generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.DiamondSquareGenerator:
+                case GeneratorAlgorithm.DiamondSquareGenerator:
                     if (_configurationManager.SeaEnabled)
                         Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));
                     generator = new DiamondSquareGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.RandomWalkGenerator:
+                case GeneratorAlgorithm.RandomWalkGenerator:
                     if (_configurationManager.SeaEnabled)
                         Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
 
                     generator = new RandomWalkGenerator(GraphicsDevice, Graphics);
                     break;
                 default:
-                    throw new NotImplementedException("Unknown alghorithm");
+                    throw new NotImplementedException("Unknown algorithm");
             }
             if (generator == null)
                 throw new NullReferenceException("Generator cannot be null");
 
             var timeStart = System.DateTime.Now;
             Scene.AddObjectToRender(generator.Generate());
-            Logger.Log.Info("Generated time = " + (DateTime.Now - timeStart).TotalMilliseconds + " ms for " + _configurationManager.Alghorithm.ToString());
+            Logger.Log.Info("Generated time = " + (DateTime.Now - timeStart).TotalMilliseconds + " ms for " + _configurationManager.Algorithm.ToString());
 
             /*
             for (int iteration = 1; iteration < 1; iteration++)

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Engine
 {
-    public enum GeneratorAlghorithm
+    public enum GeneratorAlgorithm
     {
         HillGenerator,
         PerlinNoiseGenerator,
@@ -14,7 +9,7 @@ namespace Engine
         RandomGenerator,
         RectangleGenerator,
         VoronoiGenerator, //MOCK
-        DiamondSquareGenerator, //MOCK
+        DiamondSquareGenerator,
         RandomWalkGenerator
     }
 }

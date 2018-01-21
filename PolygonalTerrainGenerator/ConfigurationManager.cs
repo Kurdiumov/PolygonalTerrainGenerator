@@ -9,7 +9,7 @@
 
         public int HeightResolution = 1080;
         public int WidthResolution = 1920;
-        public GeneratorAlghorithm Alghorithm;
+        public GeneratorAlgorithm Algorithm;
 
         public ConfigurationManager()
         {
@@ -19,7 +19,7 @@
             FpsEnabled = true;
             MouseVisible = false;
             SeaEnabled = true;
-            Alghorithm = GeneratorAlghorithm.RandomWalkGenerator;
+            Algorithm = GeneratorAlgorithm.RandomWalkGenerator;
         }
     }
 }

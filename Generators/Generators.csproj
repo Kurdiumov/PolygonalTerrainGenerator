@@ -45,19 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alghortihms\HillAlgorithmGenerator.cs" />
-    <Compile Include="Alghortihms\IGenerator.cs" />
-    <Compile Include="Alghortihms\DiamondSquareGenerator.cs" />
-    <Compile Include="Alghortihms\RandomWalkGenerator.cs" />
-    <Compile Include="Alghortihms\TruePerlinNoiseGenerator.cs" />
-    <Compile Include="Alghortihms\VoronoiGenerator.cs" />
+    <Compile Include="Algorithms\HillAlgorithmGenerator.cs" />
+    <Compile Include="Algorithms\IGenerator.cs" />
+    <Compile Include="Algorithms\DiamondSquareGenerator.cs" />
+    <Compile Include="Algorithms\RandomWalkGenerator.cs" />
+    <Compile Include="Algorithms\TruePerlinNoiseGenerator.cs" />
+    <Compile Include="Algorithms\VoronoiGenerator.cs" />
     <Compile Include="NewGenerator.cs" />
     <Compile Include="Noises.cs" />
     <Compile Include="PostModifications.cs" />
-    <Compile Include="Alghortihms\RandomGenerator.cs" />
-    <Compile Include="Alghortihms\PerlinNoiseGenerator.cs" />
+    <Compile Include="Algorithms\RandomGenerator.cs" />
+    <Compile Include="Algorithms\PerlinNoiseGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Alghortihms\RectangleGenerator.cs" />
+    <Compile Include="Algorithms\RectangleGenerator.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

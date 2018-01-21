@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading;
 using GameObjects;
 using Microsoft.Xna.Framework;
@@ -129,6 +128,8 @@ namespace Engine
                     generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics);
                     break;
                 case GeneratorAlghorithm.DiamondSquareGenerator:
+                    if (_configurationManager.SeaEnabled)
+                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));
                     generator = new DiamondSquareGenerator(GraphicsDevice, Graphics);
                     break;
                 default:

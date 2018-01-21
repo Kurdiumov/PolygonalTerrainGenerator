@@ -1,6 +1,4 @@
-﻿using Generators;
-
-namespace Engine
+﻿namespace Engine
 {
     public class ConfigurationManager
     {

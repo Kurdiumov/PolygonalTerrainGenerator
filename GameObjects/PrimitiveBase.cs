@@ -47,7 +47,7 @@ namespace GameObjects
                 _graphicDevice = gd;
 
                 GridSize = gridSize;
-                inputVertices = SetCorners(inputVertices, gridSize);
+                //inputVertices = SetCorners(inputVertices, gridSize);
                 GenerateVertices(inputVertices, offsetX, offsetY);
 
                 BasicEffect = new BasicEffect(gdm.GraphicsDevice)

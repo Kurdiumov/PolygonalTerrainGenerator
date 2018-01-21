@@ -64,7 +64,7 @@ namespace GameObjects
                 Up = new Vector3(0, 1, 0),
                 Direction = new Vector3(1, -0.5f, 1),
                 IsEnabled = true,
-                Position = new Vector3(-25, 45, -25),
+                Position = new Vector3(-25, 185, -25),
                 Speed = 0.3f
             };
             const float nearDistance = 1;

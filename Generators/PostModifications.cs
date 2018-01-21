@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Generators
+﻿namespace Generators
 {
     public static class PostModifications
     {
@@ -12,6 +6,15 @@ namespace Generators
         {
             arr = Normalize(arr, GridSize);
             arr = Flatten(arr, GridSize, Flattening);
+            for (var x = 0; x < GridSize; ++x)
+            for (var y = 0; y < GridSize; ++y)
+                arr[x][y] = arr[x][y] * Height;
+            return arr;
+        }
+
+        public static float[][] Normalize(float[][] arr, int GridSize, float Height)
+        {
+            arr = Normalize(arr, GridSize);
             for (var x = 0; x < GridSize; ++x)
             for (var y = 0; y < GridSize; ++y)
                 arr[x][y] = arr[x][y] * Height;

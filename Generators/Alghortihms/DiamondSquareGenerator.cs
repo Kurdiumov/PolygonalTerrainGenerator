@@ -1,10 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlTypes;
-using System.Globalization;
 using System.Linq;
 using GameObjects;
 using Microsoft.Xna.Framework;
@@ -19,8 +14,8 @@ namespace Generators
 
         private readonly Random rand = new Random();
 
-        public float Height = 10;
-        public float Displacement = 300;
+        public float Height = 150;
+        public float Displacement = 250;
         public int Iterations = 9;
 
         public DiamondSquareGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
@@ -65,7 +60,8 @@ namespace Generators
                 arr = ConnectArrays(diamondedArray);
                 Displacement /= 2;
             }
-
+            arr = PostModifications.Normalize(arr, arr.Length, Height);
+            
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, arr.Length, offsetX, offsetY);
         }
 
@@ -230,7 +226,7 @@ namespace Generators
 
         private float GetRandom()
         {
-            return (float)rand.NextDouble() * Height;
+            return (float)rand.NextDouble() * 10;
         }
 
         private float GetDisplacement()

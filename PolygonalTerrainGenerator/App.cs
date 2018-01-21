@@ -132,6 +132,12 @@ namespace Engine
                         Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));
                     generator = new DiamondSquareGenerator(GraphicsDevice, Graphics);
                     break;
+                case GeneratorAlghorithm.RandomWalkGenerator:
+                    if (_configurationManager.SeaEnabled)
+                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
+
+                    generator = new RandomWalkGenerator(GraphicsDevice, Graphics);
+                    break;
                 default:
                     throw new NotImplementedException("Unknown alghorithm");
             }

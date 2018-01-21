@@ -14,6 +14,7 @@ namespace Engine
         RandomGenerator,
         RectangleGenerator,
         VoronoiGenerator, //MOCK
-        DiamondSquareGenerator //MOCK
+        DiamondSquareGenerator, //MOCK
+        RandomWalkGenerator
     }
 }

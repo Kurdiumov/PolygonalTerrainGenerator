@@ -19,7 +19,7 @@
             FpsEnabled = true;
             MouseVisible = false;
             SeaEnabled = true;
-            Alghorithm = GeneratorAlghorithm.DiamondSquareGenerator;
+            Alghorithm = GeneratorAlghorithm.RandomWalkGenerator;
         }
     }
 }

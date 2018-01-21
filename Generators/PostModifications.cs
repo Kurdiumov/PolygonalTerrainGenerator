@@ -72,5 +72,44 @@
 
             return arr;
         }
+
+        public static float[][] Smooth(float[][] input, int octave)
+        {
+            int width = input.Length;
+            int height = input[0].Length;
+
+            float[][] smoothNoise = Utils.GetEmptyArray(width, height);
+
+            int samplePeriod = 1 << octave;
+            float sampleFrequency = 1.0f / samplePeriod;
+
+            for (int i = 0; i < width; i++)
+            {
+
+                int sample_i0 = (i / samplePeriod) * samplePeriod;
+                int sample_i1 = (sample_i0 + samplePeriod) % width; 
+                float horizontal_blend = (i - sample_i0) * sampleFrequency;
+
+                for (int j = 0; j < height; j++)
+                {
+
+                    int sample_j0 = (j / samplePeriod) * samplePeriod;
+                    int sample_j1 = (sample_j0 + samplePeriod) % height; 
+                    float vertical_blend = (j - sample_j0) * sampleFrequency;
+
+
+                    float top = Utils.Interpolate(input[sample_i0][sample_j0],
+                        input[sample_i1][sample_j0], horizontal_blend);
+
+
+                    float bottom = Utils.Interpolate(input[sample_i0][sample_j1],
+                        input[sample_i1][sample_j1], horizontal_blend);
+
+                    smoothNoise[i][j] = Utils.Interpolate(top, bottom, vertical_blend);
+                }
+            }
+
+            return smoothNoise;
+        }
     }
 }

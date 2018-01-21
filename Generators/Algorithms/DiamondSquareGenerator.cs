@@ -14,9 +14,9 @@ namespace Generators
 
         private readonly Random rand = new Random();
 
-        public float Height = 150;
-        public float Displacement = 250;
-        public int Iterations = 9;
+        public float Height = 500;
+        public float Displacement = 5000;
+        public int Iterations = 11;
 
         public DiamondSquareGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
         {

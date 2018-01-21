@@ -3,7 +3,6 @@
     public class ConfigurationManager
     {
         public bool IsFullScreen;
-        public bool FpsEnabled;
         public bool MouseVisible;
         public bool SeaEnabled;
 
@@ -16,9 +15,8 @@
             IsFullScreen = false;
             HeightResolution = 768;
             WidthResolution = 1366;
-            FpsEnabled = true;
             MouseVisible = false;
-            SeaEnabled = true;
+            SeaEnabled = false;
             Algorithm = GeneratorAlgorithm.RandomWalkGenerator;
         }
     }

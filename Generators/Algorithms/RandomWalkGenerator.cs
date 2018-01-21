@@ -9,14 +9,13 @@ namespace Generators
     {
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
+        private readonly Random rand;
 
         public readonly int Size = 1024;
-        public readonly int StepHeight = 1;
-
-        public readonly int MinSteps = 5500;
-        public readonly int MaxSteps = 15000;
-        public readonly Random rand;
-        public readonly int Walkers = 1000;
+        public readonly float StepHeight = 0.7f;
+        public readonly int MinSteps = 5000;
+        public readonly int MaxSteps = 150000;
+        public readonly int Walkers = 150;
         public readonly int Height = 50;
 
         public RandomWalkGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
@@ -42,7 +41,7 @@ namespace Generators
                 }
             }
 
-            
+
             arr = PostModifications.Smooth(arr, 1);
             arr = PostModifications.Normalize(arr, Size, Height);
 
@@ -52,39 +51,50 @@ namespace Generators
 
         public void Walk(float[][] arr, ref int x, ref int y)
         {
-            var direction = GetDirection();
+            bool tryAgain = true;
+            while (tryAgain)
+            {
+                var direction = GetDirection();
 
-            if (direction == 0)
-            {
-                //UP
-                if (x != 0)
+                if (direction == 0)
+                {
+                    //UP
+                    if (x <= 1)
+                        continue;
+
                     x = x - 1;
-            }
-            else if (direction == 1)
-            {
-                //RIGHT
-                if (y != Size - 1)
+                }
+                else if (direction == 1)
+                {
+                    //RIGHT
+                    if (y >= Size - 2)
+                        continue;
                     y = y + 1;
-            }
-            else if (direction == 2)
-            {
-                //DOWN
-                if (x != Size - 1)
+                }
+                else if (direction == 2)
+                {
+                    //DOWN
+                    if (x >= Size - 2)
+                        continue;
                     x = x + 1;
 
-            }
-            else if (direction == 3)
-            {
-                //LEFT
-                if (y != 0)
+                }
+                else if (direction == 3)
+                {
+                    //LEFT
+                    if (y <= 1)
+                        continue;
                     y = y - 1;
+                }
+                tryAgain = false;
             }
+
             arr[x][y] += StepHeight;
         }
 
         public int GetDirection()
         {
-            return rand.Next(0, 4); //0 = UP //1 = Right // // 2 = DOWN  3 = Left
+            return rand.Next(0, 4); 
         }
     }
 }

@@ -16,8 +16,8 @@
             HeightResolution = 768;
             WidthResolution = 1366;
             MouseVisible = false;
-            SeaEnabled = false;
-            Algorithm = GeneratorAlgorithm.RandomWalkGenerator;
+            SeaEnabled = true;
+            Algorithm = GeneratorAlgorithm.DrunkardWalk;
         }
     }
 }

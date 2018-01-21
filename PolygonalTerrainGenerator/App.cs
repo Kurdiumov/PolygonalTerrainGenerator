@@ -115,6 +115,12 @@ namespace Engine
 
                     generator = new RandomWalkGenerator(GraphicsDevice, Graphics);
                     break;
+                case GeneratorAlgorithm.DrunkardWalk:
+                    if (_configurationManager.SeaEnabled)
+                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
+
+                    generator = new DrunkardWalk(GraphicsDevice, Graphics);
+                    break;
                 default:
                     throw new NotImplementedException("Unknown algorithm");
             }

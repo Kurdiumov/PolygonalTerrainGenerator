@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\DrunkardWalk.cs" />
     <Compile Include="Algorithms\HillAlgorithmGenerator.cs" />
     <Compile Include="Algorithms\IGenerator.cs" />
     <Compile Include="Algorithms\DiamondSquareGenerator.cs" />

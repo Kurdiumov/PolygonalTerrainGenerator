@@ -12,7 +12,7 @@ namespace GameObjects
         public Vector3 Direction = Vector3.Forward;
         public Vector3 Up = Vector3.Up;
 
-        public float Speed = 0.3F;
+        public float Speed = 0.3f;
 
         private static Camera _currentCamera;
 
@@ -65,7 +65,7 @@ namespace GameObjects
                 Direction = new Vector3(1, -0.5f, 1),
                 IsEnabled = true,
                 Position = new Vector3(-25, 185, -25),
-                Speed = 0.3f
+                Speed = 3f
             };
             const float nearDistance = 1;
             const float farDistance = 1000;

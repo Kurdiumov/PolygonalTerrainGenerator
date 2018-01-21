@@ -76,6 +76,7 @@ namespace Engine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+
             if (_fpsEnabled)
             {
                 _frameCounter.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -127,8 +128,8 @@ namespace Engine
                 case GeneratorAlghorithm.TruePerlinNoiseGenerator:
                     generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics);
                     break;
-                case GeneratorAlghorithm.Fractalgenerator:
-                    generator = new FractalGenerator(GraphicsDevice, Graphics);
+                case GeneratorAlghorithm.DiamondSquareGenerator:
+                    generator = new DiamondSquareGenerator(GraphicsDevice, Graphics);
                     break;
                 default:
                     throw new NotImplementedException("Unknown alghorithm");
@@ -140,7 +141,7 @@ namespace Engine
             Scene.AddObjectToRender(generator.Generate());
             Logger.Log.Info("Generated time = " + (DateTime.Now - timeStart).TotalMilliseconds + " ms for " + _configurationManager.Alghorithm.ToString());
 
-
+            /*
             for (int iteration = 1; iteration < 1; iteration++)
             {
                 Thread.Sleep(1000);
@@ -155,7 +156,7 @@ namespace Engine
 
                 Scene.AddObjectToRender(generator.Generate(iteration, iteration));
 
-            }
+            }*/
         }
     }
 }

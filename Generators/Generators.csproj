@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Alghortihms\HillAlgorithmGenerator.cs" />
     <Compile Include="Alghortihms\IGenerator.cs" />
-    <Compile Include="Alghortihms\FractalGenerator.cs" />
+    <Compile Include="Alghortihms\DiamondSquareGenerator.cs" />
     <Compile Include="Alghortihms\TruePerlinNoiseGenerator.cs" />
     <Compile Include="Alghortihms\VoronoiGenerator.cs" />
     <Compile Include="NewGenerator.cs" />

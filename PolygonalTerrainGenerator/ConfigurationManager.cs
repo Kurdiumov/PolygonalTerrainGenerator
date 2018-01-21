@@ -21,7 +21,7 @@ namespace Engine
             FpsEnabled = true;
             MouseVisible = false;
             SeaEnabled = true;
-            Alghorithm = GeneratorAlghorithm.TruePerlinNoiseGenerator;
+            Alghorithm = GeneratorAlghorithm.DiamondSquareGenerator;
         }
     }
 }

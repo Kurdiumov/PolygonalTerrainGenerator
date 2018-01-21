@@ -9,7 +9,7 @@ namespace GameObjects
         protected int GridSize;
 
         private readonly GraphicsDevice _graphicDevice;
-        protected BasicEffect BasicEffect;
+        public BasicEffect BasicEffect;
 
         private VertexPositionNormalTexture[] _verts;
         private int[] _indices;
@@ -60,7 +60,7 @@ namespace GameObjects
             }
             catch (System.Exception e)
             {
-
+                
             }
         }
 

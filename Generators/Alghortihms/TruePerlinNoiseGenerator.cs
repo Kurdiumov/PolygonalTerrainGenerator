@@ -21,7 +21,8 @@ namespace Generators
             var arr = Utils.GetEmptyArray(size, size);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, size, offsetX, offsetY);
             
-         }
+        }
+        
     }
 }
 

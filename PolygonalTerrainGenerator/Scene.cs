@@ -57,7 +57,14 @@ namespace Engine
 
         public static void AddObjectToRender(IGameObject obj)
         {
+            if (obj is PrimitiveBase && (obj as PrimitiveBase).BasicEffect == null)
+            {
+                Logger.Log.Fatal("Basic effect is null");
+             //   throw new NullReferenceException("Basic effect == null!"); 
+            }
+
             _objectsToRender.Add(obj);
+            
         }
     }
 }

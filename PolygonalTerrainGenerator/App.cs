@@ -138,9 +138,6 @@ namespace Engine
                     case GeneratorAlgorithm.SimplexNoise:
                         generator = new SimplexNoise(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
-                    case GeneratorAlgorithm.TruePerlinNoise:
-                        generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
-                        break;
                     case GeneratorAlgorithm.DiamondSquare:
                         if (_configurationManager.SeaEnabled)
                             Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));

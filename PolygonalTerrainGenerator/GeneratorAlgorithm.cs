@@ -5,7 +5,6 @@ namespace Engine
     {
         Hill,
         PerlinNoise,
-        TruePerlinNoise, //MOCK
         Random,
         Rectangle,
         VoronoiGenerator, //MOCK

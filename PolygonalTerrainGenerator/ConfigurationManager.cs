@@ -87,6 +87,9 @@ namespace Engine
                     if (ValueExist("MaxRandomSize", AlgorithmsParameters))
                         Parameters.Add("MaxRandomSize", ToInt(GetValue("MaxRandomSize", AlgorithmsParameters)));
 
+                    if (ValueExist("Flattening", AlgorithmsParameters))
+                        Parameters.Add("Flattening", ToInt(GetValue("Flattening", AlgorithmsParameters)));
+
                     break;
                 case GeneratorAlgorithm.SimplexNoise:
 
@@ -194,7 +197,6 @@ namespace Engine
                     if (ValueExist("Smoothness", AlgorithmsParameters))
                         Parameters.Add("Smoothness", ToFloat(GetValue("Smoothness", AlgorithmsParameters)));
                     break;
-                case GeneratorAlgorithm.TruePerlinNoise: break;
                 case GeneratorAlgorithm.VoronoiGenerator: break;
                 default: throw new Exception("Unknown algorithm");
             }
@@ -256,7 +258,6 @@ namespace Engine
                 case "random": return GeneratorAlgorithm.Random;
                 case "randomwalk": return GeneratorAlgorithm.RandomWalk;
                 case "rectangle": return GeneratorAlgorithm.Rectangle;
-                case "trueperlinnoise": return GeneratorAlgorithm.TruePerlinNoise;
                 case "voronoi": return GeneratorAlgorithm.VoronoiGenerator;
                 default: throw new Exception("Unknown algorithm " + algorithm);
             }

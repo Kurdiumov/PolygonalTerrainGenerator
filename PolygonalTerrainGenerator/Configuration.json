@@ -6,7 +6,7 @@
 			"WidthResolution": 1366,
 			"MouseVisible": false,
 			"SeaEnabled": false,
-			"AlgorithmType": "SimplexNoise", 
+			"AlgorithmType": "PerlinNoise", 
 		},	
 
 		"AlgorithmsParameters": {
@@ -59,19 +59,16 @@
 			"PerlinNoise":
 			{
 				"GridSize": 1024,
-				"Height": 100.0,
-				"OctaveCount": 7,
-				"MaxRandomSize": 25
+				"Height": 500.0,
+				"OctaveCount": 12,
+				"MaxRandomSize": 250,
+				"Flattening": 2
 			},
 			"DiamondSquare":
 			{
 				"Height": 500.0,
 				"Displacement": 5000.0,
 				"Iterations": 11
-			},	
-			"TruePerlinNoise":
-			{
-				//Not implemented
 			},
 			"Voronoi":
 			{

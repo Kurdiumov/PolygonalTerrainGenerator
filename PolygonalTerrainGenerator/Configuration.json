@@ -6,6 +6,7 @@
 			"WidthResolution": 1366,
 			"MouseVisible": false,
 			"SeaEnabled": false,
+			"SeaLevel": -250.0,
 			"AlgorithmType": "DiamondSquare", 
 		},	
 

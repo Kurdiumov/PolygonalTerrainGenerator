@@ -116,12 +116,14 @@ namespace Engine
             {
                 IGenerator generator = null;
 
+                if (_configurationManager.SeaEnabled)
+                    Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, _configurationManager.SeaLevel));
+
+
                 switch (_configurationManager.Algorithm)
                 {
                     case GeneratorAlgorithm.PerlinNoise:
                         generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
-                        if (_configurationManager.SeaEnabled)
-                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 14));
                         break;
                     case GeneratorAlgorithm.Hill:
                         generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
@@ -139,20 +141,12 @@ namespace Engine
                         generator = new SimplexNoise(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
                     case GeneratorAlgorithm.DiamondSquare:
-                        if (_configurationManager.SeaEnabled)
-                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));
                         generator = new DiamondSquareGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
                     case GeneratorAlgorithm.RandomWalk:
-                        if (_configurationManager.SeaEnabled)
-                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
-
                         generator = new RandomWalkGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
                     case GeneratorAlgorithm.DrunkardWalk:
-                        if (_configurationManager.SeaEnabled)
-                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
-
                         generator = new DrunkardWalk(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
                     default:

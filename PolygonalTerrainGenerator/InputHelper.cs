@@ -4,10 +4,13 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace Engine
 {
@@ -46,20 +49,23 @@ namespace Engine
 
             if (Mouse.GetState() != _prevMouseState)
             {
-                Camera.GetCamera().Direction = Vector3.Transform(
-                    Camera.GetCamera().Direction,
-                    Matrix.CreateFromAxisAngle(Camera.GetCamera().Up,
-                        (-MathHelper.PiOver4 / 150) * (Mouse.GetState().X - _prevMouseState.X)));
+                
+                Camera.GetCamera().Direction = Vector3.Transform(Camera.GetCamera().Direction,
+                    Matrix.CreateFromAxisAngle(Vector3.Normalize(Camera.GetCamera().Up), 
+                    (-MathHelper.PiOver4 / 150) * 
+                    (Mouse.GetState().X - _prevMouseState.X)
+                    ));
 
+                
+                Camera.GetCamera().Direction = Vector3.Transform(Camera.GetCamera().Direction,
+                    Matrix.CreateFromAxisAngle(Vector3.Normalize(Vector3.Cross(Camera.GetCamera().Up, Camera.GetCamera().Direction)),
+                        (MathHelper.PiOver4 / 100) * 
+                        (Mouse.GetState().Y - _prevMouseState.Y)
+                        ));
 
-                Camera.GetCamera().Direction = Vector3.Transform(
-                    Camera.GetCamera().Direction,
-                    Matrix.CreateFromAxisAngle(
-                        Vector3.Cross(Camera.GetCamera().Up, Camera.GetCamera().Direction),
-                        (MathHelper.PiOver4 / 100) * (Mouse.GetState().Y - _prevMouseState.Y)));
 
                 // Reset PrevMouseState
-                _prevMouseState = Mouse.GetState();
+                Mouse.SetPosition(App.GetApp().Window.ClientBounds.Width / 2, App.GetApp().Window.ClientBounds.Height / 2);
 
             }
 

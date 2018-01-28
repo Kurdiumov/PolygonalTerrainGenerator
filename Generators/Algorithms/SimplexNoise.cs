@@ -72,7 +72,7 @@ namespace Generators
         {
             var arr = Generate(GridSize,  GridSize, Density);
             arr = PostModifications.NormalizeAndFlatten(arr, GridSize, Flattening, Height);
-
+            arr = Utils.ShiftTerrain(arr);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, GridSize);
         }
         

@@ -43,6 +43,9 @@ namespace Generators
             var arr = GenerateVertices(GridSize);
             arr = PostModifications.NormalizeAndFlatten(arr, GridSize, Flattening, Height);
 
+            arr = Utils.ShiftTerrain(arr);
+
+
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, GridSize);
         }
 

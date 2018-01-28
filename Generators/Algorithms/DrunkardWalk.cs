@@ -54,7 +54,7 @@ namespace Generators
 
 
             arr = PostModifications.Smooth(arr, 1);
-
+            arr = Utils.ShiftTerrain(arr);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
 
         }

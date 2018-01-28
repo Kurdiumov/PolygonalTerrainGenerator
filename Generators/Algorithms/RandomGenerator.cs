@@ -26,7 +26,7 @@ namespace Generators
             if (Parameters.ContainsKey("MapSize"))
                 MapSize = (int)Parameters["MapSize"];
             var arr = GenerateVertices(MapSize);
-
+            arr = Utils.ShiftTerrain(arr);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 

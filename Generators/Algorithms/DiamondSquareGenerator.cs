@@ -70,7 +70,7 @@ namespace Generators
                 Displacement /= 2;
             }
             arr = PostModifications.Normalize(arr, arr.Length, Height);
-
+            arr = Utils.ShiftTerrain(arr);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, arr.Length);
         }
 

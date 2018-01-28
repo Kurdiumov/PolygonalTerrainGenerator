@@ -46,7 +46,7 @@ namespace Generators
         public IGameObject Generate()
         {
             var arr = GenerateVertices(MapSize);
-
+            arr = Utils.ShiftTerrain(arr);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 

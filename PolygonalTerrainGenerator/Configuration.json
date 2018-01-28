@@ -6,7 +6,7 @@
 			"WidthResolution": 1366,
 			"MouseVisible": false,
 			"SeaEnabled": false,
-			"AlgorithmType": "PerlinNoise", 
+			"AlgorithmType": "DiamondSquare", 
 		},	
 
 		"AlgorithmsParameters": {
@@ -60,9 +60,9 @@
 			{
 				"GridSize": 1024,
 				"Height": 500.0,
-				"OctaveCount": 12,
+				"OctaveCount": 15,
 				"MaxRandomSize": 250,
-				"Flattening": 2
+				"Flattening": 10
 			},
 			"DiamondSquare":
 			{

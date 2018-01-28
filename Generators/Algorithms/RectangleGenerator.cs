@@ -59,6 +59,7 @@ namespace Generators
                 for (int j2 = y1; j2 < y2; j2++)
                     _heightMap[i2][j2] = (ZScale / GenStep + _rand.Next() % Height) / Smoothness;
             }
+            _heightMap = Utils.ShiftTerrain(_heightMap);
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, _heightMap, MapSize);
         }
     }

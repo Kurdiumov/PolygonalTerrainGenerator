@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,35 @@ namespace Generators
         public static int Floor(float x)
         {
             return (x > 0) ? ((int)x) : (((int)x) - 1);
+        }
+
+        public static float FindMin(float[][] arr)
+        {
+            var min = arr[0][0];
+            for(var i = 0; i < arr.Length; i++)
+            for (var j = 0; j < arr[i].Length; j++)
+                if (arr[i][j] < min)
+                    min = arr[i][j];
+            return min;
+        }
+        public static float FindMax(float[][] arr)
+        {
+            var max = arr[0][0];
+            for (var i = 0; i < arr.Length; i++)
+            for (var j = 0; j < arr[i].Length; j++)
+                if (arr[i][j] > max)
+                    max = arr[i][j];
+            return max;
+        }
+
+        public static float[][] ShiftTerrain(float[][] arr)
+        {
+            var difference = FindMax(arr) - FindMin(arr);
+            for (var i = 0; i < arr.Length; i++)
+            for (var j = 0; j < arr[i].Length; j++)
+                arr[i][j] -= difference;
+
+            return arr;
         }
     }
 }

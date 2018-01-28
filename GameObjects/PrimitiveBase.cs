@@ -14,14 +14,15 @@ namespace GameObjects
         private VertexPositionNormalTexture[] _verts;
         private int[] _indices;
 
-        private float[][] SetCorners(float[][] inputVertices, int gridSize)
+        private float[][] SetCorners(float[][] inputVertices, int gridSize, float min)
         {
+
             for (int i = 0; i < gridSize; i++)
             {
-                inputVertices[0][i] = 0;
-                inputVertices[gridSize - 1][i] = 0;
-                inputVertices[i][0] = 0;
-                inputVertices[i][gridSize - 1] = 0;
+                inputVertices[0][i] = min;
+                inputVertices[gridSize - 1][i] = min;
+                inputVertices[i][0] = min;
+                inputVertices[i][gridSize - 1] = min;
             }
             return inputVertices;
         }
@@ -45,7 +46,7 @@ namespace GameObjects
             try
             {
                 _graphicDevice = gd;
-
+                inputVertices = SetCorners(inputVertices, inputVertices.Length, FindMin(inputVertices));
                 GridSize = gridSize;
                 GenerateVertices(inputVertices);
 
@@ -158,6 +159,16 @@ namespace GameObjects
                     0,
                     _indices.Length / 3);
             }
+        }
+
+        private float FindMin(float[][] arr)
+        {
+            var min = arr[0][0];
+            for (var i = 0; i < arr.Length; i++)
+            for (var j = 0; j < arr[i].Length; j++)
+                if (arr[i][j] < min)
+                    min = arr[i][j];
+            return min;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameObjects;
+﻿using System.Collections.Generic;
+using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,17 +10,18 @@ namespace Generators
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
 
-        public TruePerlinNoiseGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        private int MapSize = 1024;
+
+        public TruePerlinNoiseGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            int size = 1024;
-            var arr = Utils.GetEmptyArray(size, size);
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, size, offsetX, offsetY);
+            var arr = Utils.GetEmptyArray(MapSize, MapSize);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
             
         }
         

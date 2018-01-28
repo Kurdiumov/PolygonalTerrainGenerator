@@ -1,4 +1,6 @@
-﻿namespace Generators
+﻿using System.Globalization;
+
+namespace Generators
 {
     public static class PostModifications
     {
@@ -7,8 +9,8 @@
             arr = Normalize(arr, GridSize);
             arr = Flatten(arr, GridSize, Flattening);
             for (var x = 0; x < GridSize; ++x)
-            for (var y = 0; y < GridSize; ++y)
-                arr[x][y] = arr[x][y] * Height;
+                for (var y = 0; y < GridSize; ++y)
+                    arr[x][y] = arr[x][y] * Height;
             return arr;
         }
 
@@ -16,8 +18,8 @@
         {
             arr = Normalize(arr, GridSize);
             for (var x = 0; x < GridSize; ++x)
-            for (var y = 0; y < GridSize; ++y)
-                arr[x][y] = arr[x][y] * Height;
+                for (var y = 0; y < GridSize; ++y)
+                    arr[x][y] = arr[x][y] * Height;
             return arr;
         }
 
@@ -27,27 +29,27 @@
             float max = 0;
 
             for (var x = 0; x < GridSize; ++x)
-            for (var y = 0; y < GridSize; ++y)
-            {
-                var z = arr[x][y];
-                if (z < min) min = z;
-                if (z > max) max = z;
-            }
+                for (var y = 0; y < GridSize; ++y)
+                {
+                    var z = arr[x][y];
+                    if (z < min) min = z;
+                    if (z > max) max = z;
+                }
 
 
             if (min != max)
             {
                 for (var x = 0; x < GridSize; ++x)
-                for (var y = 0; y < GridSize; ++y)
-                {
-                    arr[x][y] = (arr[x][y] - min) / (max - min);
-                }
+                    for (var y = 0; y < GridSize; ++y)
+                    {
+                        arr[x][y] = (arr[x][y] - min) / (max - min);
+                    }
             }
             else
             {
                 for (var x = 0; x < GridSize; ++x)
-                for (var y = 0; y < GridSize; ++y)
-                    arr[x][y] = min;
+                    for (var y = 0; y < GridSize; ++y)
+                        arr[x][y] = min;
             }
 
             return arr;
@@ -87,14 +89,14 @@
             {
 
                 int sample_i0 = (i / samplePeriod) * samplePeriod;
-                int sample_i1 = (sample_i0 + samplePeriod) % width; 
+                int sample_i1 = (sample_i0 + samplePeriod) % width;
                 float horizontal_blend = (i - sample_i0) * sampleFrequency;
 
                 for (int j = 0; j < height; j++)
                 {
 
                     int sample_j0 = (j / samplePeriod) * samplePeriod;
-                    int sample_j1 = (sample_j0 + samplePeriod) % height; 
+                    int sample_j1 = (sample_j0 + samplePeriod) % height;
                     float vertical_blend = (j - sample_j0) * sampleFrequency;
 
 
@@ -110,6 +112,77 @@
             }
 
             return smoothNoise;
+        }
+
+
+        public static float[][] Smoothify(float[][] input, int octave = 1)
+        {
+            int size = input.Length;
+            for (int o = 0; o <= octave; o++)
+            {
+                for (var i = o%3; i < size; i += 3)
+                {
+                    for (var j = o % 3; j < size; j += 3)
+                    {
+                        input[i][j] = GetAverage(input, i, j);
+                    }
+                }
+            }
+
+            return input;
+        }
+
+        private static float GetAverage(float[][] input, int x, int y)
+        {
+            var initValue = input[x][y];
+
+            float average = initValue;
+            int count = 1;
+
+            if (x >= 1)
+            {
+                average += input[x - 1][y];
+                count++;
+                if (y >= 1)
+                {
+                    average += input[x - 1][y - 1];
+                    count++;
+                }
+                if (y <= input.Length - 2)
+                {
+                    average += input[x - 1][y + 1];
+                    count++;
+                }
+            }
+
+            if (y >= 1)
+            {
+                average += input[x][y - 1];
+                count++;
+            }
+            if (y <= input.Length - 2)
+            {
+                average += input[x][y + 1];
+                count++;
+            }
+
+            if (x <= input.Length - 2)
+            {
+                if (y >= 1)
+                {
+                    average += input[x + 1][y - 1];
+                    count++;
+                }
+                if (y <= input.Length - 2)
+                {
+                    average += input[x + 1][y + 1];
+                    count++;
+                }
+                average += input[x + 1][y];
+                count++;
+            }
+
+            return average / count;
         }
     }
 }

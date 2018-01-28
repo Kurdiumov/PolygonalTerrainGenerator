@@ -9,29 +9,49 @@ namespace Generators
     {
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
+        private readonly Dictionary<string, object> Parameters;
 
-        public PerlinNoiseGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        private float Height = 100;
+        private int MapSize = 1024;
+        private int OctaveCount = 7;
+        private int MaxRandomSize = 25;
+
+
+        public PerlinNoiseGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
+            this.Parameters = Parameters;
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            var gridSize = 1024;
-            var arr = GenerateVertices(gridSize);
+            if (Parameters.ContainsKey("MapSize"))
+                MapSize = (int)Parameters["MapSize"];
 
-            arr = PostModifications.NormalizeAndFlatten(arr, gridSize, 1, 100);
+            if (Parameters.ContainsKey("Height"))
+                Height = (float)Parameters["Height"];
 
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, gridSize, offsetX * gridSize/4, offsetY * gridSize / 4);
+            var arr = GenerateVertices(MapSize);
+
+            arr = PostModifications.NormalizeAndFlatten(arr, MapSize, 1, Height);
+
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 
 
 
         private float[][] GenerateVertices(int gridSize)
         {
-            var randomeNoise = Noises.GenerateRandom(gridSize, 25);
-            var perlinNoise = Noises.GeneratePerlinNoise(randomeNoise, 7);
+            if (Parameters.ContainsKey("MaxRandomSize"))
+                MaxRandomSize = (int)Parameters["MaxRandomSize"];
+
+            if (Parameters.ContainsKey("OctaveCount"))
+                OctaveCount = (int)Parameters["OctaveCount"];
+
+
+            var randomeNoise = Noises.GenerateRandom(gridSize, MaxRandomSize);
+            var perlinNoise = Noises.GeneratePerlinNoise(randomeNoise, OctaveCount);
 
             return perlinNoise;
         }

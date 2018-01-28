@@ -11,20 +11,29 @@ namespace Generators
     {
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
-
         private readonly Random rand = new Random();
 
         public float Height = 500;
         public float Displacement = 5000;
         public int Iterations = 11;
 
-        public DiamondSquareGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        public DiamondSquareGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
+            if (Parameters.ContainsKey("Height"))
+                Height = (float)Parameters["Height"];
+
+            if (Parameters.ContainsKey("Displacement"))
+                Displacement = (float)Parameters["Displacement"];
+
+            if (Parameters.ContainsKey("Iterations"))
+                Iterations = (int)Parameters["Iterations"];
+
+
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
             var arr = Utils.GetEmptyArray(2, 2, -1);
 
@@ -61,8 +70,8 @@ namespace Generators
                 Displacement /= 2;
             }
             arr = PostModifications.Normalize(arr, arr.Length, Height);
-            
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, arr.Length, offsetX, offsetY);
+
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, arr.Length);
         }
 
 

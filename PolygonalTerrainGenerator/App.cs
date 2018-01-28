@@ -22,53 +22,85 @@ namespace Engine
 
         public App()
         {
-            _app = this;
-            Graphics = new GraphicsDeviceManager(this);
+            try
+            {
+                _app = this;
+                Graphics = new GraphicsDeviceManager(this);
 
-            _configurationManager = new ConfigurationManager();
-            if (_configurationManager.IsFullScreen)
-                Graphics.IsFullScreen = true;
+                _configurationManager = new ConfigurationManager();
+                if (_configurationManager.IsFullScreen)
+                    Graphics.IsFullScreen = true;
 
-            Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
-            Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
+                Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
+                Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
 
-            Content.RootDirectory = "Content";
+                Content.RootDirectory = "Content";
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Error(e);
+                throw;
+            }
         }
 
         protected override void Initialize()
         {
-            Logger.Log.Debug("Initializing");
-            base.Initialize();
-            _scene = new Scene("Scene");
+            try
+            {
+                Logger.Log.Debug("Initializing");
+                base.Initialize();
+                _scene = new Scene("Scene");
 
-            Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
-            Thread terrainGeneratorThread = new Thread(_generateTerrain);
-            terrainGeneratorThread.Start();
+                Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
+                Thread terrainGeneratorThread = new Thread(_generateTerrain);
+                terrainGeneratorThread.Start();
 
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+                _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            IsMouseVisible = _configurationManager.MouseVisible;
-            _inputHelper = new InputHelper(_configurationManager);
+                IsMouseVisible = _configurationManager.MouseVisible;
+                _inputHelper = new InputHelper(_configurationManager);
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Error(e);
+                throw;
+            }
 
         }
 
         protected override void Update(GameTime gameTime)
         {
-            _inputHelper.Update();
-            _scene.Update();
-            base.Update(gameTime);
+            try
+            {
+                _inputHelper.Update();
+                _scene.Update();
+                base.Update(gameTime);
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Error(e);
+                throw;
+            }
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            try
+            {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            GraphicsDevice.BlendState = BlendState.Opaque;
-            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+                GraphicsDevice.BlendState = BlendState.Opaque;
+                GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+                GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
 
-            _scene.Draw();
-            base.Draw(gameTime);
+                _scene.Draw();
+                base.Draw(gameTime);
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Error(e);
+                throw;
+            }
         }
 
         public static App GetApp()
@@ -80,73 +112,67 @@ namespace Engine
 
         private void _generateTerrain()
         {
-            IGenerator generator = null;
-
-            switch (_configurationManager.Algorithm)
+            try
             {
-                case GeneratorAlgorithm.PerlinNoiseGenerator:
-                    generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics);
-                    if (_configurationManager.SeaEnabled)
-                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 14));
-                    break;
-                case GeneratorAlgorithm.HillGenerator:
-                    generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.RandomGenerator:
-                    generator = new RandomGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.RectangleGenerator:
-                    generator = new RectangleGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.VoronoiGenerator:
-                    generator = new VoronoiGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.TruePerlinNoiseGenerator:
-                    generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.DiamondSquareGenerator:
-                    if (_configurationManager.SeaEnabled)
-                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));
-                    generator = new DiamondSquareGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.RandomWalkGenerator:
-                    if (_configurationManager.SeaEnabled)
-                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
+                IGenerator generator = null;
 
-                    generator = new RandomWalkGenerator(GraphicsDevice, Graphics);
-                    break;
-                case GeneratorAlgorithm.DrunkardWalk:
-                    if (_configurationManager.SeaEnabled)
-                        Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
-
-                    generator = new DrunkardWalk(GraphicsDevice, Graphics);
-                    break;
-                default:
-                    throw new NotImplementedException("Unknown algorithm");
-            }
-            if (generator == null)
-                throw new NullReferenceException("Generator cannot be null");
-
-            var timeStart = System.DateTime.Now;
-            Scene.AddObjectToRender(generator.Generate());
-            Logger.Log.Info("Generated time = " + (DateTime.Now - timeStart).TotalMilliseconds + " ms for " + _configurationManager.Algorithm.ToString());
-
-            /*
-            for (int iteration = 1; iteration < 1; iteration++)
-            {
-                Thread.Sleep(1000);
-                Scene.AddObjectToRender(generator.Generate(-iteration, -iteration));
-                for (int x = iteration * -1; x < iteration; x++)
+                switch (_configurationManager.Algorithm)
                 {
-                    Scene.AddObjectToRender(generator.Generate(x, iteration));
-                    Scene.AddObjectToRender(generator.Generate(iteration, x));
-                    Scene.AddObjectToRender(generator.Generate(x, -iteration));
-                    Scene.AddObjectToRender(generator.Generate(-iteration, x));
+                    case GeneratorAlgorithm.PerlinNoise:
+                        generator = new PerlinNoiseGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        if (_configurationManager.SeaEnabled)
+                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 14));
+                        break;
+                    case GeneratorAlgorithm.Hill:
+                        generator = new HillAlgorithmGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.Random:
+                        generator = new RandomGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.Rectangle:
+                        generator = new RectangleGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.VoronoiGenerator:
+                        generator = new VoronoiGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.TruePerlinNoise:
+                        generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.DiamondSquare:
+                        if (_configurationManager.SeaEnabled)
+                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 20.3f));
+                        generator = new DiamondSquareGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.RandomWalk:
+                        if (_configurationManager.SeaEnabled)
+                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
+
+                        generator = new RandomWalkGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    case GeneratorAlgorithm.DrunkardWalk:
+                        if (_configurationManager.SeaEnabled)
+                            Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, 0.1f));
+
+                        generator = new DrunkardWalk(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
+                    default:
+                        throw new NotImplementedException("Unknown algorithm");
                 }
+                if (generator == null)
+                    throw new NullReferenceException("Generator cannot be null");
 
-                Scene.AddObjectToRender(generator.Generate(iteration, iteration));
 
-            }*/
+                var timeStart = System.DateTime.Now;
+                Scene.AddObjectToRender(generator.Generate());
+                Logger.Log.Info("Generated time = " + (DateTime.Now - timeStart).TotalMilliseconds + " ms for " + _configurationManager.Algorithm.ToString());
+
+
+            }
+            catch (Exception e)
+            {
+                Logger.Log.Error(e);
+                throw;
+            }
         }
     }
 }

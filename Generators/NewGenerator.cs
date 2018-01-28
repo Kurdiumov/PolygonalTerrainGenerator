@@ -1,4 +1,6 @@
-﻿using GameObjects;
+﻿using System;
+using System.Xml.Serialization.Advanced;
+using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,24 +11,21 @@ namespace Generators
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
 
+        private int Size = 1024;
+
         public NewGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
         {
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            float size = 10;
-            var v1 = new VertexPosition(new Vector3(0, 0, 0));
-            var v2 = new VertexPosition(new Vector3(0, 0, size));
-            var v3 = new VertexPosition(new Vector3(size, 0, size));
-            var v4 = new VertexPosition(new Vector3(size, 0, 0));
-            var v5 = new VertexPosition(new Vector3(10, 0, 0));
-            var v6 = new VertexPosition(new Vector3(5, 0, -5));
-            
-            
-            return new GameObjects.Rectangle(_graphicDevice, _graphicDeviceManeger, v1, v2, v3, v4/*, v5, v6*/, offsetX*size, offsetY*size);
+            var arr = Utils.GetEmptyArray(Size, Size, 0);
+            arr[512][512] = 100;
+
+            arr = PostModifications.Smoothify(arr, 1);
+            return new GameObjects.PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, Size);
         }
     }
 }

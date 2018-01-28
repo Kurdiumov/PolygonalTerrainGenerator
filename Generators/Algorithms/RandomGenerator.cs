@@ -1,4 +1,5 @@
-﻿using GameObjects;
+﻿using System.Collections.Generic;
+using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,24 +9,32 @@ namespace Generators
     {
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
+        private readonly Dictionary<string, object> Parameters;
 
-        public RandomGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        private int MapSize = 1024;
+        private int MaxHeight = 5;
+
+        public RandomGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
+            this.Parameters = Parameters;
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            var gridSize = 1024;
-            var arr = GenerateVertices(gridSize);
+            if (Parameters.ContainsKey("MapSize"))
+                MapSize = (int)Parameters["MapSize"];
+            var arr = GenerateVertices(MapSize);
 
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, gridSize, offsetX * gridSize / 4, offsetY * gridSize / 4);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 
         private float[][] GenerateVertices(int gridSize)
         {
-            return Noises.GenerateRandom(gridSize, 5);
+            if (Parameters.ContainsKey("MaxHeight"))
+                MaxHeight = (int)Parameters["MaxHeight"];
+            return Noises.GenerateRandom(gridSize, MaxHeight);
         }
     }
 }

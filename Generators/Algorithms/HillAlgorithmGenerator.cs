@@ -15,21 +15,39 @@ namespace Generators
         public int Iterations = 10000;
         public int RadiusMin = 10;
         public int RadiusMax = 40;
-        public int GridSize = 1024;
+        public int MapSize = 1024;
         public int Flattening = 8;
         public float Height = 35;
 
-        public HillAlgorithmGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        public HillAlgorithmGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
+            if (Parameters.ContainsKey("Iterations"))
+                Iterations = (int)Parameters["Iterations"];
+
+            if (Parameters.ContainsKey("RadiusMin"))
+                RadiusMin = (int)Parameters["RadiusMin"];
+
+            if (Parameters.ContainsKey("RadiusMax"))
+                RadiusMax = (int)Parameters["RadiusMax"];
+
+            if (Parameters.ContainsKey("MapSize"))
+                MapSize = (int)Parameters["MapSize"];
+
+            if (Parameters.ContainsKey("Flattening"))
+                Flattening = (int)Parameters["Flattening"];
+
+            if (Parameters.ContainsKey("Height"))
+                Height = (float)Parameters["Height"];
+
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            var arr = GenerateVertices(GridSize);
+            var arr = GenerateVertices(MapSize);
 
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, GridSize, offsetX * GridSize / 4, offsetY * GridSize / 4);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 
 
@@ -40,14 +58,14 @@ namespace Generators
 
             for (var i = 0; i < Iterations; i++)
             {
-                var centerX = Rand.Next(0, GridSize);
-                var centerY = Rand.Next(0, GridSize);
+                var centerX = Rand.Next(0, MapSize);
+                var centerY = Rand.Next(0, MapSize);
                 float radius = (float)(Rand.Next(RadiusMin * 100, RadiusMax * 100)) / 100;
 
                 arr = RaiseHill(arr, radius, centerX, centerY);
             }
 
-            arr = PostModifications.NormalizeAndFlatten(arr, GridSize, Flattening, Height);
+            arr = PostModifications.NormalizeAndFlatten(arr, MapSize, Flattening, Height);
             return arr;
         }
 
@@ -56,12 +74,12 @@ namespace Generators
             var xMin = (int)(centerX - radius - 1);
             var xMax = (int)(centerX + radius + 1);
             if (xMin < 0) xMin = 0;
-            if (xMax >= GridSize) xMax = GridSize - 1;
+            if (xMax >= MapSize) xMax = MapSize - 1;
 
             var yMin = (int)(centerY - radius - 1.0f);
             var yMax = (int)(centerY + radius + 1);
             if (yMin < 0) yMin = 0;
-            if (yMax >= GridSize) yMax = GridSize - 1;
+            if (yMax >= MapSize) yMax = MapSize - 1;
 
 
             for (var x = xMin; x <= xMax; ++x)

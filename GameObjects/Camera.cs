@@ -68,7 +68,7 @@ namespace GameObjects
                 Speed = 3f
             };
             const float nearDistance = 1;
-            const float farDistance = 1000;
+            const float farDistance = 10000;
             const float angle = 45;
 
             camera.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(angle),

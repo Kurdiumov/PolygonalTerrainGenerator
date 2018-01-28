@@ -1,0 +1,76 @@
+{
+	"config": {
+		"Settings": {
+			"FullScreen": false,
+			"HeightResolution": 768,
+			"WidthResolution": 1366,
+			"MouseVisible": false,
+			"SeaEnabled": false,
+			"AlgorithmType": "DiamondSquare", 
+		},	
+
+		"AlgorithmsParameters": {
+			"Random":
+			{
+				"MapSize": 1024,
+				"MaxHeight": 5
+			},
+			"RandomWalk":
+			{
+		       "MapSize": 1024,
+		       "StepHeight": 0.7,
+		       "MinSteps": 5000,
+		       "MaxSteps": 150000,
+		       "Walkers": 150,
+		       "Height": 50
+			},
+			"DrunkardWalk":
+			{        
+				"MapSize": 1024,
+		        "MinSteps": 10000,
+		        "MaxSteps": 150000,
+		        "Walkers": 50
+			},
+			"Rectangle":
+			{
+	          "MapSize": 1024,
+	          "GenStep": 1024,
+	          "Zscale": 512.0,
+	          "Density": 52,
+	          "Height": 40.0,
+	          "Smoothness": 15.0,
+			},
+			"Hill":
+			{
+				"Iterations": 10000,
+				"RadiusMin": 10,
+				"RadiusMax": 40,
+				"MapSize": 1024,
+				"Flattening": 8,
+				"Height": 35.0
+			},
+			"PerlinNoise":
+			{
+				"GridSize": 1024,
+				"Height": 100.0,
+				"OctaveCount": 7,
+				"MaxRandomSize": 25
+			},
+			"DiamondSquare":
+			{
+				"Height": 500.0,
+				"Displacement": 5000.0,
+				"Iterations": 11
+			},	
+			"TruePerlinNoise":
+			{
+				//Not implemented
+			},
+			"Voronoi":
+			{
+				//Not implemented
+			}
+		}
+	}
+
+}

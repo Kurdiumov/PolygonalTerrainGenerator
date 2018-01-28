@@ -40,15 +40,14 @@ namespace GameObjects
             BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
         }
 
-        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize, float offsetX = 0, float offsetY = 0)
+        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize)
         {
             try
             {
                 _graphicDevice = gd;
 
                 GridSize = gridSize;
-                //inputVertices = SetCorners(inputVertices, gridSize);
-                GenerateVertices(inputVertices, offsetX, offsetY);
+                GenerateVertices(inputVertices);
 
                 BasicEffect = new BasicEffect(gdm.GraphicsDevice)
                 {
@@ -64,7 +63,7 @@ namespace GameObjects
             }
         }
 
-        protected void GenerateVertices(float[][] _inputVertices, float offsetX = 0, float offsetY = 0)
+        protected void GenerateVertices(float[][] _inputVertices)
         {
             _verts = new VertexPositionNormalTexture[GridSize * GridSize];
             for (int y = 0; y < GridSize; y++)
@@ -72,9 +71,9 @@ namespace GameObjects
                 for (int x = 0; x < GridSize; x++)
                 {
                     _verts[x + y * GridSize] = new VertexPositionNormalTexture(
-                        new Vector3(((x - (GridSize / 2)) ) + offsetX,
+                        new Vector3(((x - (GridSize / 2)) ),
                             (_inputVertices[x][y] / 2) * 1.0f,
-                            ((y - (GridSize / 2)) ) + offsetY),
+                            ((y - (GridSize / 2)) )),
                         Vector3.Zero, Vector2.Zero);
                 }
             }

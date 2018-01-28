@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,26 +12,38 @@ namespace Generators
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
         private readonly Random rand;
 
-        public readonly int Size = 1024;
+        public readonly int MapSize = 1024;
         public readonly int MinSteps = 10000;
         public readonly int MaxSteps = 150000;
         public readonly int Walkers = 50;
 
-        public DrunkardWalk(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        public DrunkardWalk(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
+            if (Parameters.ContainsKey("MapSize"))
+                MapSize = (int)Parameters["MapSize"];
+
+            if (Parameters.ContainsKey("MinSteps"))
+                MinSteps = (int)Parameters["MinSteps"];
+
+            if (Parameters.ContainsKey("MaxSteps"))
+                MaxSteps = (int)Parameters["MaxSteps"];
+
+            if (Parameters.ContainsKey("Walkers"))
+                Walkers = (int)Parameters["Walkers"];
+
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
             rand = new Random();
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            var arr = Utils.GetEmptyArray(Size, Size, 10);
+            var arr = Utils.GetEmptyArray(MapSize, MapSize, 10);
 
             for (int j = 0; j < Walkers; j++)
             {
-                int PointX = rand.Next(0, 1024);
-                int PointY = rand.Next(0, 1024);
+                int PointX = rand.Next(0, MapSize);
+                int PointY = rand.Next(0, MapSize);
 
                 int Steps = rand.Next(MinSteps, MaxSteps);
                 for (int i = 0; i < Steps; i++)
@@ -42,7 +55,7 @@ namespace Generators
 
             arr = PostModifications.Smooth(arr, 1);
 
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, Size, offsetX, offsetY);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
 
         }
 
@@ -64,14 +77,14 @@ namespace Generators
                 else if (direction == 1)
                 {
                     //RIGHT
-                    if (y >= Size - 2)
+                    if (y >= MapSize - 2)
                         continue;
                     y = y + 1;
                 }
                 else if (direction == 2)
                 {
                     //DOWN
-                    if (x >= Size - 2)
+                    if (x >= MapSize - 2)
                         continue;
                     x = x + 1;
 

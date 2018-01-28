@@ -3,14 +3,14 @@ namespace Engine
 {
     public enum GeneratorAlgorithm
     {
-        HillGenerator,
-        PerlinNoiseGenerator,
-        TruePerlinNoiseGenerator, //MOCK
-        RandomGenerator,
-        RectangleGenerator,
+        Hill,
+        PerlinNoise,
+        TruePerlinNoise, //MOCK
+        Random,
+        Rectangle,
         VoronoiGenerator, //MOCK
-        DiamondSquareGenerator,
-        RandomWalkGenerator,
+        DiamondSquare,
+        RandomWalk,
         DrunkardWalk
     }
 }

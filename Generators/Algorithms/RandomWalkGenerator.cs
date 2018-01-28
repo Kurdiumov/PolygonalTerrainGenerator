@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,23 +12,41 @@ namespace Generators
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
         private readonly Random rand;
 
-        public readonly int Size = 1024;
+        public readonly int MapSize = 1024;
         public readonly float StepHeight = 0.7f;
         public readonly int MinSteps = 5000;
         public readonly int MaxSteps = 150000;
         public readonly int Walkers = 150;
         public readonly int Height = 50;
 
-        public RandomWalkGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics)
+        public RandomWalkGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
+            if (Parameters.ContainsKey("MapSize"))
+                MapSize = (int)Parameters["MapSize"];
+
+            if (Parameters.ContainsKey("StepHeight"))
+                StepHeight = (float)Parameters["StepHeight"];
+
+            if (Parameters.ContainsKey("MinSteps"))
+                MinSteps = (int)Parameters["MinSteps"];
+
+            if (Parameters.ContainsKey("MaxSteps"))
+                MaxSteps = (int)Parameters["MaxSteps"];
+
+            if (Parameters.ContainsKey("Walkers"))
+                Walkers = (int)Parameters["Walkers"];
+
+            if (Parameters.ContainsKey("Height"))
+                Height = (int)Parameters["Height"];
+
             _graphicDevice = graphicDevice;
             _graphicDeviceManeger = graphics;
             rand = new Random();
         }
 
-        public IGameObject Generate(float offsetX = 0, float offsetY = 0)
+        public IGameObject Generate()
         {
-            var arr = Utils.GetEmptyArray(Size, Size);
+            var arr = Utils.GetEmptyArray(MapSize, MapSize);
 
             for (int j = 0; j < Walkers; j++)
             {
@@ -43,9 +62,9 @@ namespace Generators
 
 
             arr = PostModifications.Smooth(arr, 1);
-            arr = PostModifications.Normalize(arr, Size, Height);
+            arr = PostModifications.Normalize(arr, MapSize, Height);
 
-            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, Size, offsetX, offsetY);
+            return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
 
         }
 
@@ -67,14 +86,14 @@ namespace Generators
                 else if (direction == 1)
                 {
                     //RIGHT
-                    if (y >= Size - 2)
+                    if (y >= MapSize - 2)
                         continue;
                     y = y + 1;
                 }
                 else if (direction == 2)
                 {
                     //DOWN
-                    if (x >= Size - 2)
+                    if (x >= MapSize - 2)
                         continue;
                     x = x + 1;
 

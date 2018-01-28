@@ -135,6 +135,9 @@ namespace Engine
                     case GeneratorAlgorithm.VoronoiGenerator:
                         generator = new VoronoiGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
+                    case GeneratorAlgorithm.SimplexNoise:
+                        generator = new SimplexNoise(GraphicsDevice, Graphics, _configurationManager.Parameters);
+                        break;
                     case GeneratorAlgorithm.TruePerlinNoise:
                         generator = new TruePerlinNoiseGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
@@ -160,7 +163,6 @@ namespace Engine
                 }
                 if (generator == null)
                     throw new NullReferenceException("Generator cannot be null");
-
 
                 var timeStart = System.DateTime.Now;
                 Scene.AddObjectToRender(generator.Generate());

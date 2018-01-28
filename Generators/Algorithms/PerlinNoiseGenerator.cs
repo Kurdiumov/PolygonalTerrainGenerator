@@ -26,8 +26,8 @@ namespace Generators
 
         public IGameObject Generate()
         {
-            if (Parameters.ContainsKey("MapSize"))
-                MapSize = (int)Parameters["MapSize"];
+            if (Parameters.ContainsKey("GridSize"))
+                MapSize = (int)Parameters["GridSize"];
 
             if (Parameters.ContainsKey("Height"))
                 Height = (float)Parameters["Height"];

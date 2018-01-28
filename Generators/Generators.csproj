@@ -52,6 +52,7 @@
     <Compile Include="Algorithms\RandomWalkGenerator.cs" />
     <Compile Include="Algorithms\TruePerlinNoiseGenerator.cs" />
     <Compile Include="Algorithms\VoronoiGenerator.cs" />
+    <Compile Include="Algorithms\SimplexNoise.cs" />
     <Compile Include="NewGenerator.cs" />
     <Compile Include="Noises.cs" />
     <Compile Include="PostModifications.cs" />

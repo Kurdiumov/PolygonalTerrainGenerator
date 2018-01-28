@@ -40,5 +40,10 @@ namespace Generators
         {
             return (val != 0) && (val & (val - 1)) == 0;
         }
+
+        public static int Floor(float x)
+        {
+            return (x > 0) ? ((int)x) : (((int)x) - 1);
+        }
     }
 }

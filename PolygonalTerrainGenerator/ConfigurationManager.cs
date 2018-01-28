@@ -75,8 +75,8 @@ namespace Engine
             {
                 case GeneratorAlgorithm.PerlinNoise:
 
-                    if (ValueExist("MapSize", AlgorithmsParameters))
-                        Parameters.Add("MapSize", ToInt(GetValue("MapSize", AlgorithmsParameters)));
+                    if (ValueExist("GridSize", AlgorithmsParameters))
+                        Parameters.Add("GridSize", ToInt(GetValue("GridSize", AlgorithmsParameters)));
 
                     if (ValueExist("Height", AlgorithmsParameters))
                         Parameters.Add("Height", ToFloat(GetValue("Height", AlgorithmsParameters)));
@@ -86,6 +86,21 @@ namespace Engine
 
                     if (ValueExist("MaxRandomSize", AlgorithmsParameters))
                         Parameters.Add("MaxRandomSize", ToInt(GetValue("MaxRandomSize", AlgorithmsParameters)));
+
+                    break;
+                case GeneratorAlgorithm.SimplexNoise:
+
+                    if (ValueExist("GridSize", AlgorithmsParameters))
+                        Parameters.Add("GridSize", ToInt(GetValue("GridSize", AlgorithmsParameters)));
+
+                    if (ValueExist("Height", AlgorithmsParameters))
+                        Parameters.Add("Height", ToFloat(GetValue("Height", AlgorithmsParameters)));
+
+                    if (ValueExist("Flattening", AlgorithmsParameters))
+                        Parameters.Add("Flattening", ToInt(GetValue("Flattening", AlgorithmsParameters)));
+
+                    if (ValueExist("Density", AlgorithmsParameters))
+                        Parameters.Add("Density", ToFloat(GetValue("Density", AlgorithmsParameters)));
 
                     break;
                 case GeneratorAlgorithm.DiamondSquare:
@@ -236,6 +251,7 @@ namespace Engine
                 case "diamondsquare": return GeneratorAlgorithm.DiamondSquare;
                 case "hill": return GeneratorAlgorithm.Hill;
                 case "drunkardwalk": return GeneratorAlgorithm.DrunkardWalk;
+                case "simplexnoise": return GeneratorAlgorithm.SimplexNoise;
                 case "perlinnoise": return GeneratorAlgorithm.PerlinNoise;
                 case "random": return GeneratorAlgorithm.Random;
                 case "randomwalk": return GeneratorAlgorithm.RandomWalk;

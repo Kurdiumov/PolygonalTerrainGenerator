@@ -11,6 +11,7 @@ namespace Engine
         VoronoiGenerator, //MOCK
         DiamondSquare,
         RandomWalk,
-        DrunkardWalk
+        DrunkardWalk,
+        SimplexNoise
     }
 }

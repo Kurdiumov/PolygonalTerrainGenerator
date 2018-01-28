@@ -6,7 +6,7 @@
 			"WidthResolution": 1366,
 			"MouseVisible": false,
 			"SeaEnabled": false,
-			"AlgorithmType": "DiamondSquare", 
+			"AlgorithmType": "SimplexNoise", 
 		},	
 
 		"AlgorithmsParameters": {
@@ -48,6 +48,13 @@
 				"MapSize": 1024,
 				"Flattening": 8,
 				"Height": 35.0
+			},
+			"SimplexNoise":
+			{
+				"GridSize": 1024,
+				"Height": 100.0,
+				"Flattening": 3,
+				"Density": 0.0029
 			},
 			"PerlinNoise":
 			{

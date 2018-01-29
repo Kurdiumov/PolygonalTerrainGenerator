@@ -7,7 +7,7 @@
 			"MouseVisible": false,
 			"SeaEnabled": false,
 			"SeaLevel": -250.0,
-			"AlgorithmType": "DiamondSquare", 
+			"AlgorithmType": "Voronoi", 
 		},	
 
 		"AlgorithmsParameters": {
@@ -73,7 +73,12 @@
 			},
 			"Voronoi":
 			{
-				//Not implemented
+				"MapSize": 1024,
+				"NoiseType": "Perlin", //Perlin, Simplex, WhiteNoise, Default is Perlin
+				"Jitter": 0.45,
+				"Frequency": 0.05,
+				"Height": 200.0,
+				//"Seed": 134245685 // If Is null, Random value is used 
 			}
 		}
 	}

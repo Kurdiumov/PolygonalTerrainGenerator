@@ -7,7 +7,7 @@ namespace Engine
         PerlinNoise,
         Random,
         Rectangle,
-        VoronoiGenerator, //MOCK
+        Voronoi,
         DiamondSquare,
         RandomWalk,
         DrunkardWalk,

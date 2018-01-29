@@ -134,7 +134,7 @@ namespace Engine
                     case GeneratorAlgorithm.Rectangle:
                         generator = new RectangleGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
-                    case GeneratorAlgorithm.VoronoiGenerator:
+                    case GeneratorAlgorithm.Voronoi:
                         generator = new VoronoiGenerator(GraphicsDevice, Graphics, _configurationManager.Parameters);
                         break;
                     case GeneratorAlgorithm.SimplexNoise:

@@ -47,6 +47,22 @@ namespace Generators
             return (x > 0) ? ((int)x) : (((int)x) - 1);
         }
 
+
+        public static int Round(float f)
+        {
+            return (f >= 0) ? (int)(f + (float)0.5) : (int)(f - (float)0.5);
+        }
+
+        public static float InterpQuinticFunc(float t)
+        {
+            return t * t * t * (t * (t * 6 - 15) + 10);
+        }
+
+        public  static float Lerp(float a, float b, float t)
+        {
+            return a + t * (b - a);
+        }
+
         public static float FindMin(float[][] arr)
         {
             var min = arr[0][0];

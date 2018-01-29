@@ -202,7 +202,26 @@ namespace Engine
                     if (ValueExist("Smoothness", AlgorithmsParameters))
                         Parameters.Add("Smoothness", ToFloat(GetValue("Smoothness", AlgorithmsParameters)));
                     break;
-                case GeneratorAlgorithm.VoronoiGenerator: break;
+                case GeneratorAlgorithm.Voronoi:
+                    if (ValueExist("MapSize", AlgorithmsParameters))
+                        Parameters.Add("MapSize", ToInt(GetValue("MapSize", AlgorithmsParameters)));
+
+                    if (ValueExist("Jitter", AlgorithmsParameters))
+                        Parameters.Add("Jitter", ToFloat(GetValue("Jitter", AlgorithmsParameters)));
+
+                    if (ValueExist("Frequency", AlgorithmsParameters))
+                        Parameters.Add("Frequency", ToFloat(GetValue("Frequency", AlgorithmsParameters)));
+
+                    if (ValueExist("Height", AlgorithmsParameters))
+                        Parameters.Add("Height", ToFloat(GetValue("Height", AlgorithmsParameters)));
+
+                    if (ValueExist("Seed", AlgorithmsParameters))
+                        Parameters.Add("Seed", ToInt(GetValue("Seed", AlgorithmsParameters)));
+
+                    if (ValueExist("NoiseType", AlgorithmsParameters))
+                        Parameters.Add("NoiseType", GetValue("NoiseType", AlgorithmsParameters));
+
+                    break;
                 default: throw new Exception("Unknown algorithm");
             }
         }
@@ -263,7 +282,7 @@ namespace Engine
                 case "random": return GeneratorAlgorithm.Random;
                 case "randomwalk": return GeneratorAlgorithm.RandomWalk;
                 case "rectangle": return GeneratorAlgorithm.Rectangle;
-                case "voronoi": return GeneratorAlgorithm.VoronoiGenerator;
+                case "voronoi": return GeneratorAlgorithm.Voronoi;
                 default: throw new Exception("Unknown algorithm " + algorithm);
             }
         }

@@ -50,8 +50,8 @@
     <Compile Include="Algorithms\IGenerator.cs" />
     <Compile Include="Algorithms\DiamondSquareGenerator.cs" />
     <Compile Include="Algorithms\RandomWalkGenerator.cs" />
-    <Compile Include="Algorithms\VoronoiGenerator.cs" />
     <Compile Include="Algorithms\SimplexNoise.cs" />
+    <Compile Include="Algorithms\VoronoiGenerator.cs" />
     <Compile Include="NewGenerator.cs" />
     <Compile Include="Noises.cs" />
     <Compile Include="PostModifications.cs" />

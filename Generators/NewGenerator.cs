@@ -22,9 +22,7 @@ namespace Generators
         public IGameObject Generate()
         {
             var arr = Utils.GetEmptyArray(Size, Size, 0);
-            arr[512][512] = 100;
 
-            arr = PostModifications.Smoothify(arr, 1);
             return new GameObjects.PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, Size);
         }
     }

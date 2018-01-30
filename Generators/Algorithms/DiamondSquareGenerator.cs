@@ -71,6 +71,7 @@ namespace Generators
             }
             arr = PostModifications.Normalize(arr, arr.Length, Height);
             arr = Utils.ShiftTerrain(arr);
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Diamond Square");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, arr.Length);
         }
 

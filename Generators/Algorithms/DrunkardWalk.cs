@@ -55,6 +55,7 @@ namespace Generators
 
             arr = PostModifications.Smooth(arr, 1);
             arr = Utils.ShiftTerrain(arr);
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Drunkard walk");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
 
         }

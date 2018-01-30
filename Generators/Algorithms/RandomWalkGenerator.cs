@@ -64,6 +64,7 @@ namespace Generators
             arr = PostModifications.Smooth(arr, 1);
             arr = PostModifications.Normalize(arr, MapSize, Height);
             arr = Utils.ShiftTerrain(arr);
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Random walk");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
 
         }

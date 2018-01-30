@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +53,7 @@
     <Compile Include="Algorithms\RandomWalkGenerator.cs" />
     <Compile Include="Algorithms\SimplexNoise.cs" />
     <Compile Include="Algorithms\VoronoiGenerator.cs" />
+    <Compile Include="HeightMapGenerator.cs" />
     <Compile Include="NewGenerator.cs" />
     <Compile Include="Noises.cs" />
     <Compile Include="PostModifications.cs" />

@@ -50,6 +50,7 @@ namespace Generators
                     arr[i][j] = GetCellular(i, j);
 
             arr = PostModifications.Normalize(arr, Size, Height);
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Voronoi (" + noiseType.ToString()+")");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, Size);
         }
 
@@ -82,8 +83,6 @@ namespace Generators
                 Seed = (int)Parameters["Seed"];
             else
                 Seed = new Random().Next(1000000000);
-
-            Generate();
         }
 
         public float GetCellular(float x, float y)

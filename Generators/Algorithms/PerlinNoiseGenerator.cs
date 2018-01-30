@@ -45,7 +45,7 @@ namespace Generators
 
             arr = Utils.ShiftTerrain(arr);
 
-
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Perlin noise");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, GridSize);
         }
 

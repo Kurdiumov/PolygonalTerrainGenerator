@@ -27,6 +27,7 @@ namespace Generators
                 MapSize = (int)Parameters["MapSize"];
             var arr = GenerateVertices(MapSize);
             arr = Utils.ShiftTerrain(arr);
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Random");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 

@@ -47,6 +47,7 @@ namespace Generators
         {
             var arr = GenerateVertices(MapSize);
             arr = Utils.ShiftTerrain(arr);
+            HeightMapGenerator.Generate(_graphicDevice, arr, "Hill algorithm");
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, MapSize);
         }
 

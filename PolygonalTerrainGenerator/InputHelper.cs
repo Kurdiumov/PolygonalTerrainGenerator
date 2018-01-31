@@ -65,6 +65,7 @@ namespace Engine
 
 
                 // Reset PrevMouseState
+                
                 Mouse.SetPosition(App.GetApp().Window.ClientBounds.Width / 2, App.GetApp().Window.ClientBounds.Height / 2);
 
             }

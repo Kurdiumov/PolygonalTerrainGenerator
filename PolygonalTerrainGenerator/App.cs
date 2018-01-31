@@ -17,7 +17,6 @@ namespace Engine
         private readonly ConfigurationManager _configurationManager;
         private bool _fpsEnabled;
         private SpriteFont _spriteFont;
-        private SpriteBatch _spriteBatch;
         private InputHelper _inputHelper;
 
         public App()
@@ -33,8 +32,6 @@ namespace Engine
 
                 Graphics.PreferredBackBufferHeight = _configurationManager.HeightResolution;
                 Graphics.PreferredBackBufferWidth = _configurationManager.WidthResolution;
-
-                Content.RootDirectory = "Content";
             }
             catch (Exception e)
             {
@@ -54,8 +51,6 @@ namespace Engine
                 Camera.CreateCamera(GraphicsDevice.Viewport.AspectRatio);
                 Thread terrainGeneratorThread = new Thread(_generateTerrain);
                 terrainGeneratorThread.Start();
-
-                _spriteBatch = new SpriteBatch(GraphicsDevice);
 
                 IsMouseVisible = _configurationManager.MouseVisible;
                 _inputHelper = new InputHelper(_configurationManager);

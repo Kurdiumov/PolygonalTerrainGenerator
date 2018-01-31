@@ -7,7 +7,7 @@
 			"MouseVisible": false,
 			"SeaEnabled": false,
 			"SeaLevel": -250.0,
-			"AlgorithmType": "DiamondSquare", 
+			"AlgorithmType": "Voronoi", 
 		},	
 
 		"AlgorithmsParameters": {

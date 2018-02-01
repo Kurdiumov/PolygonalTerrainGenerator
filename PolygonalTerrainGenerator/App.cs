@@ -111,10 +111,6 @@ namespace Engine
             {
                 IGenerator generator = null;
 
-                if (_configurationManager.SeaEnabled)
-                    Scene.AddObjectToRender(new Sea(GraphicsDevice, Graphics, _configurationManager.SeaLevel));
-
-
                 switch (_configurationManager.Algorithm)
                 {
                     case GeneratorAlgorithm.PerlinNoise:

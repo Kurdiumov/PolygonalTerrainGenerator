@@ -15,8 +15,6 @@ namespace Engine
 
         public bool IsFullScreen;
         public bool MouseVisible;
-        public bool SeaEnabled;
-        public float SeaLevel = 0;
 
         public int HeightResolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
         public int WidthResolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
@@ -57,13 +55,6 @@ namespace Engine
 
             if (ValueExist("MouseVisible", settings))
                 MouseVisible = ToBool(GetValue("MouseVisible", settings));
-
-            if (ValueExist("SeaEnabled", settings))
-                SeaEnabled = ToBool(GetValue("SeaEnabled", settings));
-
-            if (ValueExist("SeaLevel", settings))
-                SeaLevel = ToFloat(GetValue("SeaLevel", settings));
-
 
             if (ValueExist("AlgorithmType", settings))
                 Algorithm = ParseAlgorithm(GetValue("AlgorithmType", settings));

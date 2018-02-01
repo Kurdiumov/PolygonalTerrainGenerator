@@ -1,12 +1,12 @@
 {
 	"config": {
-		"Settings": {
-			"FullScreen": false,
-			"HeightResolution": 768,
-			"WidthResolution": 1366,
-			"MouseVisible": false,
-			"AlgorithmType": "Voronoi", 
-		},	
+    "Settings": {
+      "FullScreen": false,
+      "HeightResolution": 768,
+      "WidthResolution": 1366,
+      "MouseVisible": false,
+      "AlgorithmType": "RandomWalk"
+    },	
 
 		"AlgorithmsParameters": {
 			"Random":
@@ -20,7 +20,7 @@
 		       "StepHeight": 0.7,
 		       "MinSteps": 5000,
 		       "MaxSteps": 150000,
-		       "Walkers": 150,
+		       "Walkers": 50,
 		       "Height": 50
 			},
 			"DrunkardWalk":

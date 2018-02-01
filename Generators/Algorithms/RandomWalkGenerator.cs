@@ -48,6 +48,7 @@ namespace Generators
         {
             var arr = Utils.GetEmptyArray(MapSize, MapSize);
 
+            for(int l = 0; l < 5; l++)
             for (int j = 0; j < Walkers; j++)
             {
                 int PointX = rand.Next(0, 1024);
@@ -56,7 +57,7 @@ namespace Generators
                 int Steps = rand.Next(MinSteps, MaxSteps);
                 for (int i = 0; i < Steps; i++)
                 {
-                    Walk(arr, ref PointX, ref PointY);
+                    Walk(arr, ref PointX, ref PointY, l);
                 }
             }
 
@@ -69,7 +70,7 @@ namespace Generators
 
         }
 
-        public void Walk(float[][] arr, ref int x, ref int y)
+        public void Walk(float[][] arr, ref int x, ref int y, int level)
         {
             bool tryAgain = true;
             while (tryAgain)
@@ -109,7 +110,14 @@ namespace Generators
                 tryAgain = false;
             }
 
-            arr[x][y] += StepHeight;
+            if (level > 0)
+            {
+                if (arr[x][y] != 0 && arr[x][y] != level*StepHeight)
+                    arr[x][y] += StepHeight;
+            }
+            else
+                arr[x][y] += StepHeight;
+        
         }
 
         public int GetDirection()

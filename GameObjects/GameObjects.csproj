@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="Rectangle.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="PrimitiveBase.cs" />

@@ -27,20 +27,6 @@ namespace GameObjects
             return inputVertices;
         }
 
-        public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm)
-        {
-            _graphicDevice = gd;
-            if (gdm.GraphicsDevice == null)
-                return;
-            BasicEffect = new BasicEffect(gdm.GraphicsDevice)
-            {
-                LightingEnabled = true,
-                PreferPerPixelLighting = true
-            };
-            BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-            BasicEffect.DirectionalLight0.DiffuseColor = Color.Gray.ToVector3();
-        }
-
         public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize)
         {
             try

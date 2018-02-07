@@ -38,7 +38,7 @@ namespace GameObjects
                 PreferPerPixelLighting = true
             };
             BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-            BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+            BasicEffect.DirectionalLight0.DiffuseColor = Color.Gray.ToVector3();
         }
 
         public PrimitiveBase(GraphicsDevice gd, GraphicsDeviceManager gdm, float[][] inputVertices, int gridSize)
@@ -56,7 +56,7 @@ namespace GameObjects
                     PreferPerPixelLighting = true
                 };
                 BasicEffect.DirectionalLight0.Direction = new Vector3(0.0f, -1.0f, -1.0f);
-                BasicEffect.DirectionalLight0.DiffuseColor = Color.OliveDrab.ToVector3();
+                BasicEffect.DirectionalLight0.DiffuseColor = Color.Gray.ToVector3();
             }
             catch (System.Exception e)
             {

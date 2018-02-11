@@ -16,17 +16,6 @@ namespace Generators
             WhiteNoise
         };
 
-        private struct Float2
-        {
-            public readonly float x, y;
-
-            public Float2(float x, float y)
-            {
-                this.x = x;
-                this.y = y;
-            }
-        }
-
         public float Jitter = 0.45f;
         public int Seed = 1337;
         public float Frequency = (float)0.01;
@@ -34,10 +23,8 @@ namespace Generators
         private NoiseType noiseType = NoiseType.Perlin;
         private float Height = 100;
 
-        private const int X_PRIME = 1619;
-        private const int Y_PRIME = 31337;
-        private const float F2 = (float)(1.0 / 2.0);
-        private const float G2 = (float)(1.0 / 4.0);
+
+
         private readonly GraphicsDevice _graphicDevice;
         private readonly GraphicsDeviceManager _graphicDeviceManeger;
 
@@ -90,7 +77,7 @@ namespace Generators
             x *= Frequency;
             y *= Frequency;
 
-            return SingleCellular(x, y);
+            return Cellular(x, y);
         }
 
         private float GetNoise(float x, float y)
@@ -101,15 +88,61 @@ namespace Generators
             switch (noiseType)
             {
                 case NoiseType.Perlin:
-                    return SinglePerlin(Seed, x, y);
+                    return Noises.Perlin(Seed, x, y);
                 case NoiseType.Simplex:
-                    return SingleSimplex(Seed, x, y);
+                    return Noises.Simplex(Seed, x, y);
 
                 case NoiseType.WhiteNoise:
-                    return GetWhiteNoise(x, y);
+                    return Noises.GetWhiteNoise(Seed, x, y);
                 default:
                     return 0;
             }
+        }
+
+        private float Cellular(float x, float y)
+        {
+            int xr = Utils.Round(x);
+            int yr = Utils.Round(y);
+
+            float distance = 999999;
+            int xc = 0, yc = 0;
+
+
+            for (int xi = xr - 1; xi <= xr + 1; xi++)
+            {
+                for (int yi = yr - 1; yi <= yr + 1; yi++)
+                {
+                    Float2 vec = CELL_2D[Hash2D(Seed, xi, yi) & 255];
+
+                    float vecX = xi - x + vec.x * Jitter;
+                    float vecY = yi - y + vec.y * Jitter;
+
+                    float newDistance = vecX * vecX + vecY * vecY;
+
+                    if (newDistance < distance)
+                    {
+                        distance = newDistance;
+                        xc = xi;
+                        yc = yi;
+                    }
+                }
+            }
+
+
+            Float2 vect = CELL_2D[Hash2D(Seed, xc, yc) & 255];
+            return GetNoise(xc + vect.x * Jitter, yc + vect.y * Jitter);
+        }
+
+        private static int Hash2D(int seed, int x, int y)
+        {
+            int hash = seed;
+            hash ^= Utils.X_PRIME * x;
+            hash ^= Utils.Y_PRIME * y;
+
+            hash = hash * hash * hash * 60493;
+            hash = (hash >> 13) ^ hash;
+
+            return hash;
         }
 
         private static readonly Float2[] CELL_2D =
@@ -243,199 +276,5 @@ namespace Generators
             new Float2(-0.146637214f, -0.9891903394f), new Float2(-0.782318098f, 0.6228791163f),
             new Float2(-0.5039610839f, -0.8637263605f), new Float2(-0.7743120191f, -0.6328039957f),
         };
-
-
-
-        private static readonly Float2[] GRAD_2D =
-        {
-            new Float2(-1, -1), new Float2(1, -1), new Float2(-1, 1), new Float2(1, 1),
-            new Float2(0, -1), new Float2(-1, 0), new Float2(0, 1), new Float2(1, 0),
-        };
-
-        private float SingleCellular(float x, float y)
-        {
-            int xr = Utils.Round(x);
-            int yr = Utils.Round(y);
-
-            float distance = 999999;
-            int xc = 0, yc = 0;
-
-
-
-            for (int xi = xr - 1; xi <= xr + 1; xi++)
-            {
-                for (int yi = yr - 1; yi <= yr + 1; yi++)
-                {
-                    Float2 vec = CELL_2D[Hash2D(Seed, xi, yi) & 255];
-
-                    float vecX = xi - x + vec.x * Jitter;
-                    float vecY = yi - y + vec.y * Jitter;
-
-                    float newDistance = vecX * vecX + vecY * vecY;
-
-                    if (newDistance < distance)
-                    {
-                        distance = newDistance;
-                        xc = xi;
-                        yc = yi;
-                    }
-                }
-            }
-
-
-            Float2 vect = CELL_2D[Hash2D(Seed, xc, yc) & 255];
-            return GetNoise(xc + vect.x * Jitter, yc + vect.y * Jitter);
-        }
-
-        private static int Hash2D(int seed, int x, int y)
-        {
-            int hash = seed;
-            hash ^= X_PRIME * x;
-            hash ^= Y_PRIME * y;
-
-            hash = hash * hash * hash * 60493;
-            hash = (hash >> 13) ^ hash;
-
-            return hash;
-        }
-
-        private float SinglePerlin(int seed, float x, float y)
-        {
-            int x0 = Utils.Floor(x);
-            int y0 = Utils.Floor(y);
-            int x1 = x0 + 1;
-            int y1 = y0 + 1;
-
-            float xs, ys;
-
-            xs = Utils.InterpQuinticFunc(x - x0);
-            ys = Utils.InterpQuinticFunc(y - y0);
-
-
-            float xd0 = x - x0;
-            float yd0 = y - y0;
-            float xd1 = xd0 - 1;
-            float yd1 = yd0 - 1;
-
-            float xf0 = Utils.Lerp(GradCoord2D(seed, x0, y0, xd0, yd0), GradCoord2D(seed, x1, y0, xd1, yd0), xs);
-            float xf1 = Utils.Lerp(GradCoord2D(seed, x0, y1, xd0, yd1), GradCoord2D(seed, x1, y1, xd1, yd1), xs);
-
-            return Utils.Lerp(xf0, xf1, ys);
-        }
-
-        private float SingleSimplex(int seed, float x, float y)
-        {
-            float t = (x + y) * F2;
-            int i = Utils.Floor(x + t);
-            int j = Utils.Floor(y + t);
-
-            t = (i + j) * G2;
-            float X0 = i - t;
-            float Y0 = j - t;
-
-            float x0 = x - X0;
-            float y0 = y - Y0;
-
-            int i1, j1;
-            if (x0 > y0)
-            {
-                i1 = 1;
-                j1 = 0;
-            }
-            else
-            {
-                i1 = 0;
-                j1 = 1;
-            }
-
-            float x1 = x0 - i1 + G2;
-            float y1 = y0 - j1 + G2;
-            float x2 = x0 - 1 + F2;
-            float y2 = y0 - 1 + F2;
-
-            float n0, n1, n2;
-
-            t = (float)0.5 - x0 * x0 - y0 * y0;
-            if (t < 0) n0 = 0;
-            else
-            {
-                t *= t;
-                n0 = t * t * GradCoord2D(seed, i, j, x0, y0);
-            }
-
-            t = (float)0.5 - x1 * x1 - y1 * y1;
-            if (t < 0) n1 = 0;
-            else
-            {
-                t *= t;
-                n1 = t * t * GradCoord2D(seed, i + i1, j + j1, x1, y1);
-            }
-
-            t = (float)0.5 - x2 * x2 - y2 * y2;
-            if (t < 0) n2 = 0;
-            else
-            {
-                t *= t;
-                n2 = t * t * GradCoord2D(seed, i + 1, j + 1, x2, y2);
-            }
-
-            return 50 * (n0 + n1 + n2);
-        }
-
-        private float GetWhiteNoise(float x, float y)
-        {
-            int xi = FloatCast2Int(x);
-            int yi = FloatCast2Int(y);
-
-            return ValCoord2D(Seed, xi, yi);
-        }
-
-        private static float ValCoord2D(int seed, int x, int y)
-        {
-            int n = seed;
-            n ^= X_PRIME * x;
-            n ^= Y_PRIME * y;
-
-            return (n * n * n * 60493) / (float)2147483648.0;
-        }
-
-        private static float GradCoord2D(int seed, int x, int y, float xd, float yd)
-        {
-            int hash = seed;
-            hash ^= X_PRIME * x;
-            hash ^= Y_PRIME * y;
-
-            hash = hash * hash * hash * 60493;
-            hash = (hash >> 13) ^ hash;
-
-            Float2 g = GRAD_2D[hash & 7];
-
-            return xd * g.x + yd * g.y;
-        }
-
-        private int FloatCast2Int(float f)
-        {
-            var i = BitConverter.DoubleToInt64Bits(f);
-
-            return (int)(i ^ (i >> 32));
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

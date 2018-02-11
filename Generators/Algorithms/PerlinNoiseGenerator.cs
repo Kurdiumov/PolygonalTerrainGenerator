@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,9 +13,9 @@ namespace Generators
 
         private float Height = 100;
         private int GridSize = 1024;
-        private int OctaveCount = 7;
-        private int MaxRandomSize = 25;
         private int Flattening = 1;
+        private float Frequency = 0.005f;
+        private int Seed = 134245685;
 
         public PerlinNoiseGenerator(GraphicsDevice graphicDevice, GraphicsDeviceManager graphics, Dictionary<string, object> Parameters)
         {
@@ -24,12 +25,13 @@ namespace Generators
             if (Parameters.ContainsKey("GridSize"))
                 GridSize = (int)Parameters["GridSize"];
 
-            if (Parameters.ContainsKey("OctaveCount"))
-                OctaveCount = (int)Parameters["OctaveCount"];
+            if (Parameters.ContainsKey("Seed"))
+                Seed = (int)Parameters["Seed"];
+            else
+                Seed = new Random().Next(1000000000);
 
-
-            if (Parameters.ContainsKey("MaxRandomSize"))
-                MaxRandomSize = (int)Parameters["MaxRandomSize"];
+            if (Parameters.ContainsKey("Frequency"))
+                Frequency = (float)Parameters["Frequency"];
 
             if (Parameters.ContainsKey("Flattening"))
                 Flattening = (int)Parameters["Flattening"];
@@ -40,7 +42,7 @@ namespace Generators
 
         public IGameObject Generate()
         {
-            var arr = GenerateVertices(GridSize);
+            var arr = GenerateVertices(GridSize, Seed);
             arr = PostModifications.NormalizeAndFlatten(arr, GridSize, Flattening, Height);
 
             arr = Utils.ShiftTerrain(arr);
@@ -49,13 +51,12 @@ namespace Generators
             return new PrimitiveBase(_graphicDevice, _graphicDeviceManeger, arr, GridSize);
         }
 
-
-
-        private float[][] GenerateVertices(int gridSize)
+        private float[][] GenerateVertices(int gridSize, int seed)
         {
-            var randomeNoise = Noises.GenerateRandom(gridSize, MaxRandomSize);
-            var perlinNoise = Noises.GeneratePerlinNoise(randomeNoise, OctaveCount);
-
+            var perlinNoise = Utils.GetEmptyArray(gridSize, gridSize);
+            for (int i = 0; i < gridSize; i++)
+                for (int j = 0; j < gridSize; j++)
+                    perlinNoise[i][j] = Noises.Perlin(seed, i* Frequency, j * Frequency);
             return perlinNoise;
         }
     }

@@ -89,10 +89,13 @@ namespace Generators
                 {
                     // z = r^2 - ((x2-x1)^2 + (y2-y1)^2)
                     float distanceSquare = (centerX - x) * (centerX - x) + (centerY - y) * (centerY - y);
+                    if(distanceSquare < 0)
+                        continue;
                     var height = Utils.Square(radius) - distanceSquare;
+                    if(height < 0)
+                        continue;
 
-                    if (height > 0 && arr[y][x] < (height))
-                        arr[y][x] = height;
+                    arr[y][x] += height;
                 }
             }
 

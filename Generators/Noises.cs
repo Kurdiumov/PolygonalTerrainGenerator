@@ -4,21 +4,8 @@ namespace Generators
 {
     public static class Noises
     {
-        public static float[][] GenerateWhiteNoise(int width, int height)
-        {
-            Random random = new Random(0); //Seed to 0 for testing
-            float[][] noise = Utils.GetEmptyArray(width, height);
-
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    noise[i][j] = (float)random.NextDouble() % 1;
-                }
-            }
-
-            return noise;
-        }
+        private  const float F2 = (float)(1.0 / 2.0);
+        private  const float G2 = (float)(1.0 / 4.0);
 
         public static float[][] GenerateRandom(int gridSize, int maxSize)
         {
@@ -32,49 +19,95 @@ namespace Generators
             return arr;
         }
 
-        public static float[][] GeneratePerlinNoise(float[][] baseNoise, int octaveCount)
+        public static float Simplex(int seed, float x, float y)
         {
-            int width = baseNoise.Length;
-            int height = baseNoise[0].Length;
+            float t = (x + y) * F2;
+            int i = Utils.Floor(x + t);
+            int j = Utils.Floor(y + t);
 
-            float[][][] smoothNoise = new float[octaveCount][][];
+            t = (i + j) * G2;
+            float X0 = i - t;
+            float Y0 = j - t;
 
-            float persistance = 0.5f;
+            float x0 = x - X0;
+            float y0 = y - Y0;
 
-            for (int i = 0; i < octaveCount; i++)
+            int i1, j1;
+            if (x0 > y0)
             {
-                smoothNoise[i] = PostModifications.Smooth(baseNoise, i);
+                i1 = 1;
+                j1 = 0;
+            }
+            else
+            {
+                i1 = 0;
+                j1 = 1;
             }
 
-            float[][] perlinNoise = Utils.GetEmptyArray(width, height);
-            float amplitude = 1.0f;
-            float totalAmplitude = 0.0f;
+            float x1 = x0 - i1 + G2;
+            float y1 = y0 - j1 + G2;
+            float x2 = x0 - 1 + F2;
+            float y2 = y0 - 1 + F2;
 
-            //blend noise together
-            for (int octave = octaveCount - 1; octave >= 0; octave--)
+            float n0, n1, n2;
+
+            t = (float)0.5 - x0 * x0 - y0 * y0;
+            if (t < 0) n0 = 0;
+            else
             {
-                amplitude *= persistance;
-                totalAmplitude += amplitude;
-
-                for (int i = 0; i < width; i++)
-                {
-                    for (int j = 0; j < height; j++)
-                    {
-                        perlinNoise[i][j] += smoothNoise[octave][i][j] * amplitude;
-                    }
-                }
+                t *= t;
+                n0 = t * t * Utils.GradCoord2D(seed, i, j, x0, y0);
             }
 
-            //normalisation
-            for (int i = 0; i < width; i++)
+            t = (float)0.5 - x1 * x1 - y1 * y1;
+            if (t < 0) n1 = 0;
+            else
             {
-                for (int j = 0; j < height; j++)
-                {
-                    perlinNoise[i][j] /= totalAmplitude;
-                }
+                t *= t;
+                n1 = t * t * Utils.GradCoord2D(seed, i + i1, j + j1, x1, y1);
             }
 
-            return perlinNoise;
+            t = (float)0.5 - x2 * x2 - y2 * y2;
+            if (t < 0) n2 = 0;
+            else
+            {
+                t *= t;
+                n2 = t * t * Utils.GradCoord2D(seed, i + 1, j + 1, x2, y2);
+            }
+
+            return 50 * (n0 + n1 + n2);
+        }
+
+        public static float Perlin(int seed, float x, float y)
+        {
+            int x0 = Utils.Floor(x);
+            int y0 = Utils.Floor(y);
+            int x1 = x0 + 1;
+            int y1 = y0 + 1;
+
+            float xs, ys;
+
+            xs = Utils.InterpQuinticFunc(x - x0);
+            ys = Utils.InterpQuinticFunc(y - y0);
+
+
+            float xd0 = x - x0;
+            float yd0 = y - y0;
+            float xd1 = xd0 - 1;
+            float yd1 = yd0 - 1;
+
+            float xf0 = Utils.Lerp(Utils.GradCoord2D(seed, x0, y0, xd0, yd0), Utils.GradCoord2D(seed, x1, y0, xd1, yd0), xs);
+            float xf1 = Utils.Lerp(Utils.GradCoord2D(seed, x0, y1, xd0, yd1), Utils.GradCoord2D(seed, x1, y1, xd1, yd1), xs);
+
+            return Utils.Lerp(xf0, xf1, ys);
+        }
+
+        public static float GetWhiteNoise(int seed, float x, float y)
+        {
+            int xi = Utils.FloatCast2Int(x);
+            int yi = Utils.FloatCast2Int(y);
+
+            return Utils.ValCoord2D(seed, xi, yi);
         }
     }
 }

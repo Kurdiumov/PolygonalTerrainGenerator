@@ -77,11 +77,11 @@ namespace Engine
                     if (ValueExist("Height", AlgorithmsParameters))
                         Parameters.Add("Height", ToFloat(GetValue("Height", AlgorithmsParameters)));
 
-                    if (ValueExist("OctaveCount", AlgorithmsParameters))
-                        Parameters.Add("OctaveCount", ToInt(GetValue("OctaveCount", AlgorithmsParameters)));
+                    if (ValueExist("Frequency", AlgorithmsParameters))
+                        Parameters.Add("Frequency", ToFloat(GetValue("Frequency", AlgorithmsParameters)));
 
-                    if (ValueExist("MaxRandomSize", AlgorithmsParameters))
-                        Parameters.Add("MaxRandomSize", ToInt(GetValue("MaxRandomSize", AlgorithmsParameters)));
+                    if (ValueExist("Seed", AlgorithmsParameters))
+                        Parameters.Add("Seed", ToInt(GetValue("Seed", AlgorithmsParameters)));
 
                     if (ValueExist("Flattening", AlgorithmsParameters))
                         Parameters.Add("Flattening", ToInt(GetValue("Flattening", AlgorithmsParameters)));
@@ -98,8 +98,11 @@ namespace Engine
                     if (ValueExist("Flattening", AlgorithmsParameters))
                         Parameters.Add("Flattening", ToInt(GetValue("Flattening", AlgorithmsParameters)));
 
-                    if (ValueExist("Density", AlgorithmsParameters))
-                        Parameters.Add("Density", ToFloat(GetValue("Density", AlgorithmsParameters)));
+                    if (ValueExist("Frequency", AlgorithmsParameters))
+                        Parameters.Add("Frequency", ToFloat(GetValue("Frequency", AlgorithmsParameters)));
+
+                    if (ValueExist("Seed", AlgorithmsParameters))
+                        Parameters.Add("Seed", ToInt(GetValue("Seed", AlgorithmsParameters)));
 
                     break;
                 case GeneratorAlgorithm.DiamondSquare:

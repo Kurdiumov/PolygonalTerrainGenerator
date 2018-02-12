@@ -15,8 +15,6 @@ namespace Engine
         private static App _app;
 
         private readonly ConfigurationManager _configurationManager;
-        private bool _fpsEnabled;
-        private SpriteFont _spriteFont;
         private InputHelper _inputHelper;
 
         public App()

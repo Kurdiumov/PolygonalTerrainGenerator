@@ -5,7 +5,7 @@
       "HeightResolution": 768,
       "WidthResolution": 1366,
       "MouseVisible": false,
-      "AlgorithmType": "SimplexNoise"
+      "AlgorithmType": "Random"
     },
 
     "AlgorithmsParameters": {
@@ -47,8 +47,8 @@
         "GridSize": 1024,
         "Height": 100.0,
         "Flattening": 1,
-        "Frequency": 0.05,
-        "Seed":  15656
+        "Frequency": 0.0035
+        //"Seed":  15656
       },
       "PerlinNoise": {
         "GridSize": 1024,

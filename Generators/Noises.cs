@@ -14,7 +14,22 @@ namespace Generators
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
+                {
+                    /*
+                    var valuei = i;
+                    if (valuei >= gridSize / 2)
+                        valuei = gridSize - i;
+
+                    var valuej = j;
+                    if (valuej >= gridSize / 2)
+                        valuej = gridSize - j;
+
+                    var value = valuei + valuej / 2;
+
+                    arr[i][j] = random.Next((maxSize + value)/2);
+                    */
                     arr[i][j] = random.Next(maxSize);
+                }
             }
             return arr;
         }

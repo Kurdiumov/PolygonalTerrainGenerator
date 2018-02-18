@@ -59,22 +59,11 @@ namespace GameObjects
                 {
                     _verts[x + y * GridSize] = new VertexPositionNormalTexture(
                         new Vector3(((x - (GridSize / 2)) ),
-                            (_inputVertices[x][y] / 2) * 1.0f,
+                            _inputVertices[x][y],
                             ((y - (GridSize / 2)) )),
                         Vector3.Zero, Vector2.Zero);
                 }
             }
-            GenerateIndices();
-        }
-
-        protected void GenerateVertices(VertexPosition[] inputVertices)
-        {
-            _verts = new VertexPositionNormalTexture[GridSize * GridSize];
-            for (int i = 0; i < inputVertices.Length; i++)
-            {
-                _verts[i] = new VertexPositionNormalTexture(inputVertices[i].Position, Vector3.Up, Vector2.Zero);
-            }
-
             GenerateIndices();
         }
 
@@ -95,28 +84,22 @@ namespace GameObjects
                     _indices[ctr++] = br;
                     _indices[ctr++] = bl;
 
+
                     Vector3 leg0 = _verts[tl].Position - _verts[bl].Position;
                     Vector3 leg1 = _verts[tl].Position - _verts[br].Position;
                     Vector3 norm = Vector3.Cross(leg0, leg1);
-
+                    
                     _verts[tl].Normal += norm;
                     _verts[br].Normal += norm;
                     _verts[bl].Normal += norm;
-
+                    
                     _indices[ctr++] = tl;
                     _indices[ctr++] = tr;
                     _indices[ctr++] = br;
 
-                    leg0 = _verts[tl].Position - _verts[br].Position;
-                    leg1 = _verts[tl].Position - _verts[tr].Position;
-                    norm = Vector3.Cross(leg0, leg1);
-
-                    _verts[tl].Normal += norm;
-                    _verts[tr].Normal += norm;
-                    _verts[br].Normal += norm;
                 }
             }
-
+            
             foreach (VertexPositionNormalTexture v in _verts)
                 v.Normal.Normalize();
         }

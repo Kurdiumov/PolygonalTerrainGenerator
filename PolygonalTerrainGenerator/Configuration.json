@@ -1,11 +1,11 @@
 {
   "config": {
     "Settings": {
-      "FullScreen": false,
+      "FullScreen": true,
       "HeightResolution": 768,
       "WidthResolution": 1366,
       "MouseVisible": false,
-      "AlgorithmType": "Random"
+      "AlgorithmType": "DiamondSquare"
     },
 
     "AlgorithmsParameters": {
@@ -41,14 +41,14 @@
         "RadiusMax": 100,
         "MapSize": 1024,
         "Flattening": 4,
-        "Height": 500.0
+        "Height": 250.0
       },
       "SimplexNoise": {
         "GridSize": 1024,
         "Height": 100.0,
         "Flattening": 1,
-        "Frequency": 0.0035
-        //"Seed":  15656
+        "Frequency": 0.005,
+        "Seed":  15656
       },
       "PerlinNoise": {
         "GridSize": 1024,

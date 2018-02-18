@@ -5,7 +5,7 @@
       "HeightResolution": 768,
       "WidthResolution": 1366,
       "MouseVisible": false,
-      "AlgorithmType": "DiamondSquare"
+      "AlgorithmType": "Hill"
     },
 
     "AlgorithmsParameters": {
@@ -40,8 +40,8 @@
         "RadiusMin": 10,
         "RadiusMax": 100,
         "MapSize": 1024,
-        "Flattening": 4,
-        "Height": 250.0
+        "Flattening": 1,
+        "Height": 500.0
       },
       "SimplexNoise": {
         "GridSize": 1024,

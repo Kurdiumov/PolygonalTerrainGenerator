@@ -5,7 +5,7 @@
       "HeightResolution": 768,
       "WidthResolution": 1366,
       "MouseVisible": false,
-      "AlgorithmType": "Hill"
+      "AlgorithmType": "DiamondSquare"
     },
 
     "AlgorithmsParameters": {

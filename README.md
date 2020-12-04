@@ -14,19 +14,19 @@ Polygonal terrain generator allows to create a **terrain** and **heightmap** usi
 
 ---
 
-####Terrain output examples using some selected algorithms:<br/>
+#### Terrain output examples using some selected algorithms:<br/>
 
 ![Diamond Square algorithm example output](./Images/DiamondSquare.png)
-_<center>Diamond Square</center>_<br/><br/><br/>
+_Diamond Square_<br><br>
 
 ![Hill algorithm example output](./Images/Hill.png)
-_<center>Hill</center>_<br/><br/><br/>
+_Hill_<br><br>
 
 ![Voronoi algorithm example output](./Images/Voronoi.png)
-_<center>Voronoi</center>_<br/><br/><br/>
+_Voronoi_<br><br>
 
 ![Simplex Noise algorithm example output](./Images/SimplexNoise.png)
-_<center>Simplex noise</center>_<br/><br/><br/>
+_Simplex noise_<br><br>
 
 ![Random Walk algorithm example output](./Images/RandomWalk.png)
-_<center>Random walk</center>_
+_Random walk_<br><br>
